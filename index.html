@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VKT SnapOCR — Screenshot to text, 100% on your device</title>
+<meta name="description" content="VKT SnapOCR is a screenshot OCR extension for Chrome and Edge. Drag a box over any part of a page and copy the text. The OCR runs locally: screenshots are never uploaded.">
+<link rel="icon" href="icons/icon128.png">
+<style>
+:root{
+  --accent:#4f6ef7;--accent-strong:#3d5bef;--accent-soft:#eef1fe;
+  --ink:#1f2430;--body:#4b5568;--muted:#8a919e;--line:#e6e8ee;
+  --bg:#f7f8fb;--surface:#fff;--radius:14px;
+  --shadow:0 18px 40px rgba(31,36,48,.08);--shadow-soft:0 8px 24px rgba(31,36,48,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{
+  margin:0;background:var(--bg);color:var(--body);
+  font-family:-apple-system,"Segoe UI",Roboto,"Microsoft YaHei",Arial,sans-serif;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header.site{position:sticky;top:0;z-index:20;background:rgba(247,248,251,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink);font-size:16px}
+.brand img{width:26px;height:26px;border-radius:7px}
+.nav-links{display:flex;gap:22px;font-size:14px}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover{color:var(--accent);text-decoration:none}
+.top-actions{display:flex;align-items:center;gap:9px}
+.icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--muted)}
+.icon-btn:hover{color:var(--accent);border-color:#cdd7fe;text-decoration:none}
+.lang{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 30px 9px 11px;font-size:13px;color:var(--ink);cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364718a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;background-size:12px}
+
+.hero{padding:64px 0 24px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.kicker{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+h1{font-size:44px;line-height:1.1;letter-spacing:-.03em;color:var(--ink);margin:18px 0 14px;font-weight:800}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:16.5px;max-width:520px;margin:0 0 22px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:14px;font-weight:650}
+.btn:hover{text-decoration:none;box-shadow:var(--shadow-soft)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-strong)}
+.note{font-size:12.5px;color:var(--muted)}
+
+.app-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.mock-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);background:#fbfcfe}
+.dot{width:9px;height:9px;border-radius:50%;background:#dfe3ea}
+.mock-body{padding:18px;position:relative}
+.fake-lines span{display:block;height:9px;border-radius:5px;background:#eef0f5;margin-bottom:9px}
+.fake-lines span:nth-child(2){width:86%}
+.fake-lines span:nth-child(3){width:64%}
+.sel{position:absolute;left:16px;top:30px;width:210px;height:74px;border:1.5px solid var(--accent);border-radius:4px;box-shadow:0 0 0 999px rgba(18,22,34,.42)}
+.sel-tag{position:absolute;left:16px;top:2px;background:var(--accent);color:#fff;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:5px}
+.result-card{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.result-head{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+.result-text{padding:10px 12px;font-size:12.5px;line-height:1.7;color:var(--ink);font-family:Consolas,"Microsoft YaHei",monospace}
+.result-foot{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-top:1px solid var(--line);font-size:10.5px;color:var(--muted)}
+.pill{font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 8px}
+.mini-btn{font-size:11px;background:var(--accent);color:#fff;border-radius:6px;padding:3px 10px}
+.app-footer{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:650}
+.app-footer svg{color:var(--accent)}
+
+section.block{padding:52px 0}
+h2{font-size:27px;letter-spacing:-.02em;color:var(--ink);margin:0 0 8px;font-weight:800}
+.sub{color:var(--muted);margin:0 0 26px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.card h3{margin:0 0 6px;font-size:15.5px;color:var(--ink);font-weight:750}
+.card p{margin:0;font-size:13.5px;line-height:1.6}
+.ico{width:34px;height:34px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:16px}
+
+table.plans{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14px}
+table.plans th,table.plans td{padding:12px 16px;border-bottom:1px solid var(--line);text-align:left}
+table.plans th{background:#fbfcfe;color:var(--ink);font-size:13px}
+table.plans tr:last-child td{border-bottom:none}
+table.plans td:not(:first-child){text-align:center;width:120px}
+.yes{color:#16a34a;font-weight:700}
+.no{color:var(--muted)}
+
+.privacy-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
+.privacy-copy p{margin:0 0 10px;font-size:14.5px}
+.privacy-list{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.privacy-list ul{margin:0;padding-left:18px;font-size:13.5px}
+.privacy-list li{margin-bottom:7px}
+
+.support-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center}
+.support-copy p{max-width:640px;margin:0 0 12px;font-size:14.5px;line-height:1.75}
+.disclaimer{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.kofi{display:flex;flex-direction:column;align-items:center;gap:12px;padding:26px 22px;border:1px solid #dde4fd;border-radius:20px;background:linear-gradient(160deg,#f2f5ff 0%,#ffffff 100%);text-align:center}
+.kofi-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#fff;border:1px solid var(--line);color:var(--accent);box-shadow:var(--shadow-soft)}
+.kofi p{margin:0;color:var(--body);font-size:13px;line-height:1.6}
+.kofi-btn{width:100%}
+.kofi-note{margin:0;color:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+
+.site-footer{border-top:1px solid var(--line);background:#fff;padding:28px 0}
+.footer-inner{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between}
+.footer-brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-size:14px;font-weight:700}
+.footer-brand img{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.footer-brand .copy{display:block;color:var(--muted);font-size:12px;font-weight:500;line-height:1.4;margin-top:1px}
+.footer-links{display:flex;flex-wrap:wrap;gap:9px 18px;align-items:center;font-size:13px;font-weight:600}
+.footer-links a{color:var(--muted)}
+.footer-links a:hover{color:var(--accent);text-decoration:none}
+
+@media (max-width:900px){
+  .hero-grid,.privacy-grid,.support-grid{grid-template-columns:1fr;gap:32px}
+  h1{font-size:34px}
+  .grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+@media (max-width:560px){
+  .brand span.name{display:none}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html"><img src="icons/icon128.png" alt=""><span class="name">VKT SnapOCR</span></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#features" data-k="nav.features">Features</a>
+      <a href="#plans" data-k="nav.plans">Free &amp; Pro</a>
+      <a href="#privacy" data-k="nav.privacy">Privacy</a>
+      <a href="#support" data-k="nav.support">Support</a>
+    </nav>
+    <div class="top-actions">
+      <select class="lang" id="lang-select" aria-label="Language">
+        <option value="en">English</option>
+        <option value="zh">简体中文</option>
+        <option value="ja">日本語</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+      </select>
+      <a class="icon-btn" id="github-btn" href="https://github.com/annmax1983/SnapOCR" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 5.96c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker" data-k="tagline">Local OCR · nothing uploaded</span>
+        <h1><span data-k="h1a">Text inside a screenshot,</span><br><em data-k="h1b">now selectable.</em></h1>
+        <p class="lede" data-k="intro">Drag a box over any part of a page and SnapOCR turns the pixels into editable text.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" id="cta-btn" href="https://www.annmax1983.com/extensions/snapocr" target="_blank" rel="noopener">
+            <span data-k="cta">Get the extension</span>
+            <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn" id="policy-btn" href="privacy-policy.html" data-k="privacyLink">Privacy policy</a>
+        </div>
+        <div class="note" data-k="note">Free to use · Works offline · No account</div>
+      </div>
+
+      <div class="app-card" aria-hidden="true">
+        <div class="mock-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="mock-body">
+          <div style="position:relative;height:128px;overflow:hidden;border-radius:8px">
+            <div class="fake-lines"><span></span><span></span><span></span><span style="width:48%"></span></div>
+            <div class="sel"></div>
+            <div class="sel-tag">210 × 74</div>
+          </div>
+          <div class="result-card">
+            <div class="result-head"><span data-k="mockText">Recognized text</span><span class="pill">eng · bundled</span></div>
+            <div class="result-text">Invoice #2026-114<br>Total due: $1,280.00<br>Payment terms: Net 30</div>
+            <div class="result-foot"><span data-k="mockLocal">100% local · nothing uploaded</span><span class="mini-btn" data-k="mockCopy">Copy</span></div>
+          </div>
+          <div class="app-footer">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg>
+            <span data-k="browsers">Chrome &amp; Edge</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="features">
+    <div class="wrap">
+      <h2 data-k="features.title">Everything it does</h2>
+      <p class="sub" data-k="features.sub">A small tool with a narrow job.</p>
+      <div class="grid" id="feature-grid"></div>
+    </div>
+  </section>
+
+  <section class="block" id="plans">
+    <div class="wrap">
+      <h2 data-k="plans.title">Free vs Pro</h2>
+      <p class="sub" data-k="plans.sub">The free version is permanent.</p>
+      <table class="plans">
+        <thead><tr><th data-k="plans.colFeature">Feature</th><th data-k="plans.colFree">Free</th><th data-k="plans.colPro">Pro</th></tr></thead>
+        <tbody id="plan-rows"></tbody>
+      </table>
+      <p class="note" style="margin-top:14px"><span data-k="plans.note">One licence activates on two browsers.</span> <a id="pro-link" href="https://annmax1983.com/checkout?plugin=snapocr" target="_blank" rel="noopener" data-k="plans.cta">Get Pro</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="privacy">
+    <div class="wrap">
+      <h2 data-k="privacy.title">Private by design</h2>
+      <div class="privacy-grid">
+        <div class="privacy-copy">
+          <p data-k="privacy.p1">Screenshots and recognised text never leave the browser.</p>
+          <p data-k="privacy.p2">There is no OCR server behind SnapOCR.</p>
+        </div>
+        <div class="privacy-list"><ul id="privacy-bullets"></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="support">
+    <div class="wrap">
+      <div class="support-grid">
+        <div class="support-copy">
+          <p class="kicker" data-k="support.kicker">Support the developer</p>
+          <h2 data-k="support.title">💌 A Note to You</h2>
+          <p data-k="support.p1">Thank you for using SnapOCR.</p>
+          <p data-k="support.p2">If it saves you some retyping, that is already the best reward.</p>
+          <p class="disclaimer" data-k="support.disclaimer">Ko-fi donations are completely voluntary and do not affect any features.</p>
+        </div>
+        <div class="kofi">
+          <div class="kofi-icon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z"/><path d="M16 10h2a3 3 0 0 1 0 6h-2"/><path d="M7 4v2M11 4v2"/></svg></div>
+          <p data-k="support.hint">Click the button below to visit the support page</p>
+          <a class="btn btn-primary kofi-btn" id="kofi-btn" href="https://ko-fi.com/annmax?ref=snapocr" target="_blank" rel="noopener"><span data-k="support.btn">Buy Me a Coffee</span></a>
+          <p class="kofi-note">Ko-fi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <img src="icons/icon128.png" alt="" width="30" height="30">
+      <div>VKT SnapOCR<span class="copy" id="footer-copy">© 2026 VKT SnapOCR</span></div>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="https://annmax1983.com/extensions.html" target="_blank" rel="noopener" data-k="footer.more">More extensions</a>
+      <a href="privacy-policy.html" data-k="footer.privacy">Privacy</a>
+      <a href="https://github.com/annmax1983/SnapOCR" target="_blank" rel="noopener" data-k="footer.github">GitHub</a>
+      <a href="https://www.annmax1983.com/extensions/snapocr" target="_blank" rel="noopener" data-k="footer.site">Website</a>
+      <a href="mailto:support@annmax1983.com">support@annmax1983.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+const MODEL = {
+langs: {
+en: {
+  tagline: "Local OCR · nothing uploaded",
+  h1a: "Text inside a screenshot,",
+  h1b: "now selectable.",
+  intro: "SnapOCR is a screenshot OCR extension for Chrome and Edge. Drag a box over any part of a page and the words inside it become editable text you can copy. The OCR engine runs on your device, so screenshots are never uploaded, no account is needed, and it keeps working with the network switched off.",
+  cta: "Get the extension",
+  note: "Free to use · Works offline · No account",
+  privacyLink: "Privacy policy",
+  mockText: "Recognized text",
+  mockLocal: "100% local · nothing uploaded",
+  mockCopy: "Copy",
+  browsers: "Chrome & Edge",
+  nav: { features: "Features", plans: "Free & Pro", privacy: "Privacy", support: "Support" },
+  features: {
+    title: "Everything it does",
+    sub: "A small tool with a narrow job: get the text out, fast, without sending your screen anywhere.",
+    items: [
+      { ic: "🔒", t: "Local by design", d: "The OCR engine and language data ship inside the extension. Recognition happens in your browser and the image is discarded when the result window closes." },
+      { ic: "✈️", t: "Works offline", d: "English and Simplified Chinese are bundled and need no network. Pro adds seven more languages that download once, then work offline too." },
+      { ic: "🖱️", t: "Two ways to start", d: "Right-click the page and pick SnapOCR, or click the toolbar button. Then drag a box over the text." },
+      { ic: "✏️", t: "Editable results", d: "OCR is good, not perfect. Fix a misread character in place before copying or exporting." },
+      { ic: "🖥️", t: "Sharp on HiDPI", d: "The crop uses your real device pixel ratio instead of stretching a 1x capture, so text stays crisp on high-resolution screens." },
+      { ic: "🛡️", t: "Minimal permissions", d: "No permanent access to every site. The selection overlay is injected only while you are capturing." }
+    ]
+  },
+  plans: {
+    title: "Free vs Pro",
+    sub: "The free version is permanent. Pro adds two things and removes nothing.",
+    colFeature: "Feature", colFree: "Free", colPro: "Pro",
+    rows: [
+      ["Daily captures", "20 / day", "Unlimited"],
+      ["Offline recognition (EN / 简体中文)", "✓", "✓"],
+      ["7 more languages", "—", "✓"],
+      ["Recognition history", "10 records", "200 records"],
+      ["TXT export", "—", "✓"]
+    ],
+    note: "One-off purchase — no subscription, no renewals. One licence activates on two browsers; removing the licence frees the slot again.",
+    cta: "Get Pro"
+  },
+  privacy: {
+    title: "Private by design",
+    p1: "Screenshots and recognised text never leave the browser. No analytics, no advertising, no tracking, no account — and no OCR server behind the extension.",
+    p2: "Network requests are limited to two optional cases, and neither carries page content.",
+    bullets: [
+      "Recognition runs locally with a bundled OCR engine",
+      "No browsing history and no cookies are read",
+      "Only outbound traffic: a one-time download of the seven Pro language packs",
+      "The licence check (Pro only) sends an installation ID and basic browser metadata, never screenshots"
+    ]
+  },
+  support: {
+    kicker: "Support the developer",
+    title: "💌 A Note to You",
+    p1: "Thank you for using SnapOCR. I built it because every other image-to-text tool asked me to upload a screenshot, sign in, or wait for a server — none of which belongs in a tool this small.",
+    p2: "If SnapOCR saves you some retyping, that is already the best reward. If you would like to ☕ buy me a coffee, it genuinely keeps these small utilities maintained and improving.",
+    disclaimer: "Ko-fi donations are completely voluntary and do not affect any features. Sponsorship is not tied to extension functionality — purely user-driven support.",
+    hint: "Click the button below to visit the Ko-fi support page",
+    btn: "Buy Me a Coffee"
+  },
+  footer: {
+    copy: "© 2026 SnapOCR",
+    more: "More extensions",
+    privacy: "Privacy",
+    github: "GitHub",
+    site: "Website"
+  }
+},
+zh: {
+  tagline: "本地 OCR · 截图不上传",
+  h1a: "截图里的文字，",
+  h1b: "现在能选中了。",
+  intro: "SnapOCR 是一款面向 Chrome / Edge 的截图取字扩展。在网页上框选任意区域，里面的文字立刻变成可编辑、可复制的内容。OCR 引擎在你自己的设备上运行，截图永不上传，无需注册账号，断网也能照常用。",
+  cta: "获取扩展",
+  note: "免费使用 · 离线可用 · 无需注册",
+  privacyLink: "隐私政策",
+  mockText: "识别结果",
+  mockLocal: "100% 本地 · 不上传",
+  mockCopy: "复制",
+  browsers: "Chrome & Edge",
+  nav: { features: "功能", plans: "免费与 Pro", privacy: "隐私", support: "支持作者" },
+  features: {
+    title: "它能做什么",
+    sub: "一个小工具，只干一件事：把文字快速取出来，且不把屏幕内容发送到任何地方。",
+    items: [
+      { ic: "🔒", t: "本地运行", d: "OCR 引擎和语言数据随扩展一起安装。识别在你自己的浏览器里完成，结果窗口关闭后图片即被丢弃。" },
+      { ic: "✈️", t: "离线可用", d: "英文与简体中文已内置，无需联网；另外 7 种语言属 Pro，下载一次后同样可离线使用。" },
+      { ic: "🖱️", t: "两种启动方式", d: "在页面上右键选择 SnapOCR，或点工具栏按钮，然后框选文字即可。" },
+      { ic: "✏️", t: "结果可编辑", d: "OCR 只是准，不是完美。复制或导出前可以先改掉错字。" },
+      { ic: "🖥️", t: "高分屏清晰", d: "按真实设备像素比裁剪，而不是把 1 倍图拉伸，高分屏下文字依然锐利。" },
+      { ic: "🛡️", t: "权限最小化", d: "不申请常驻全站访问权限，只有你发起识别时才注入选区层。" }
+    ]
+  },
+  plans: {
+    title: "免费版与 Pro",
+    sub: "免费版永久可用。Pro 只多了两项，不减少任何现有功能。",
+    colFeature: "功能", colFree: "免费", colPro: "Pro",
+    rows: [
+      ["每日识别次数", "20 次 / 天", "无限制"],
+      ["离线识别（英文 / 简体中文）", "✓", "✓"],
+      ["另外 7 种语言", "—", "✓"],
+      ["识别历史", "10 条", "200 条"],
+      ["导出 TXT", "—", "✓"]
+    ],
+    note: "一次性买断，无订阅、不自动续费。一个授权码可在两个浏览器激活，注销后名额释放。",
+    cta: "获取 Pro"
+  },
+  privacy: {
+    title: "隐私优先",
+    p1: "截图和识别结果从不离开浏览器。没有统计、没有广告、没有追踪、不需要账号，扩展背后也没有 OCR 服务器。",
+    p2: "网络请求只有两种可选情况，且都不包含页面内容。",
+    bullets: [
+      "识别由内置 OCR 引擎在本地完成",
+      "不读取浏览记录，不读取 Cookie",
+      "唯一的对外流量：7 种 Pro 语言包的一次性下载",
+      "授权校验（仅 Pro）只发送安装标识与基础浏览器信息，绝不包含截图"
+    ]
+  },
+  support: {
+    kicker: "支持开发者",
+    title: "💌 说给你听",
+    p1: "谢谢你使用 SnapOCR。做它是因为别的「图片转文字」工具都要求上传截图、登录账号或者等服务器响应——这些都不该出现在这么小的工具里。",
+    p2: "如果 SnapOCR 帮你少打了一些字，这已经是最好的回报。如果你愿意 ☕ 请我喝杯咖啡，那确实能让这类小工具持续维护下去。",
+    disclaimer: "Ko-fi 捐赠完全自愿，不影响任何功能。赞助与扩展功能无关，纯粹是用户自发支持。",
+    hint: "点击下方按钮前往 Ko-fi 支持页面",
+    btn: "请我喝杯咖啡"
+  },
+  footer: {
+    copy: "© 2026 SnapOCR",
+    more: "更多扩展",
+    privacy: "隐私政策",
+    github: "GitHub",
+    site: "官方网站"
+  }
+}
+,ja: {
+  tagline: "ローカル OCR · アップロードなし",
+  h1a: "スクリーンショットの文字が、",
+  h1b: "選択できるようになる。",
+  intro: "SnapOCR は Chrome / Edge 向けのスクリーンショット OCR 拡張機能です。ページ上の任意の範囲をドラッグで囲むと、中の文字が編集・コピーできるテキストになります。OCR エンジンは端末上で動くため、スクリーンショットがアップロードされることはなく、アカウントも不要、オフラインでも動作します。",
+  cta: "拡張機能を入手",
+  note: "無料 · オフライン対応 · 登録不要",
+  privacyLink: "プライバシーポリシー",
+  mockText: "認識結果",
+  mockLocal: "100% ローカル · アップロードなし",
+  mockCopy: "コピー",
+  browsers: "Chrome & Edge",
+  nav: { features: "機能", plans: "無料と Pro", privacy: "プライバシー", support: "支援" },
+  features: {
+    title: "できること",
+    sub: "やることは一つ：画面の内容をどこにも送らず、素早く文字を取り出す。",
+    items: [
+      { ic: "🔒", t: "ローカル設計", d: "OCR エンジンと言語データは拡張機能に同梱。認識はブラウザ内で完結し、結果ウィンドウを閉じれば画像は破棄されます。" },
+      { ic: "✈️", t: "オフラインで動く", d: "英語と簡体字中国語は同梱で通信不要。残り 7 言語は Pro の機能で、初回ダウンロード後オフラインで利用できます。" },
+      { ic: "🖱️", t: "2つの起動方法", d: "ページを右クリックして SnapOCR を選ぶか、ツールバーボタンを押すだけ。あとは文字を囲むだけです。" },
+      { ic: "✏️", t: "結果は編集可能", d: "OCR は高精度ですが完璧ではありません。コピー前に誤認識をその場で修正できます。" },
+      { ic: "🖥️", t: "高解像度でも鮮明", d: "実際の device pixel ratio で切り取るため、1x 画像を引き伸ばすようなぼやけが起きません。" },
+      { ic: "🛡️", t: "最小限の権限", d: "全サイトへの常駐アクセスは要求しません。選択オーバーレイは実行時のみ注入されます。" }
+    ]
+  },
+  plans: {
+    title: "無料版と Pro",
+    sub: "無料版は永久に使えます。Pro は 2 点を追加するだけで、機能を削りません。",
+    colFeature: "機能", colFree: "無料", colPro: "Pro",
+    rows: [
+      ["1 日の認識回数", "20 回 / 日", "無制限"],
+      ["オフライン認識（英語 / 簡体字中国語）", "✓", "✓"],
+      ["残り 7 言語", "—", "✓"],
+      ["認識履歴", "10 件", "200 件"],
+      ["TXT 書き出し", "—", "✓"]
+    ],
+    note: "買い切り（サブスクなし・自動更新なし）。1 つのライセンスで 2 つのブラウザーまで有効化でき、解除すると枠が空きます。",
+    cta: "Pro を入手"
+  },
+  privacy: {
+    title: "プライバシー重視",
+    p1: "スクリーンショットと認識結果がブラウザの外に出ることはありません。解析・広告・トラッキング・アカウントはなく、拡張機能の背後に OCR サーバーもありません。",
+    p2: "通信が発生するのは任意の 2 つの場面だけで、どちらもページ内容を含みません。",
+    bullets: [
+      "認識は同梱の OCR エンジンによるローカル処理",
+      "閲覧履歴や Cookie は読み取りません",
+      "外部通信は Pro の 7 言語パックの初回ダウンロードのみ",
+      "ライセンス確認（Pro のみ）はインストール識別子と基本情報のみで、スクリーンショットは送りません"
+    ]
+  },
+  support: {
+    kicker: "開発者を支援",
+    title: "💌 あなたへ",
+    p1: "SnapOCR を使ってくださりありがとうございます。他の「画像からテキスト」ツールはアップロードやログイン、サーバー待ちを求めますが、この規模の道具にそれは要らないと思って作りました。",
+    p2: "打ち直しが少し減ったなら、それが一番の報酬です。もし ☕ コーヒーをご馳走いただけるなら、こうした小さな道具を維持していく大きな支えになります。",
+    disclaimer: "Ko-fi でのご支援は完全に任意で、機能には一切影響しません。スポンサーシップは拡張機能の機能と無関係です。",
+    hint: "下のボタンから Ko-fi のサポートページへ移動します",
+    btn: "コーヒーをご馳走する"
+  },
+  footer: {
+    copy: "© 2026 SnapOCR",
+    more: "他の拡張機能",
+    privacy: "プライバシー",
+    github: "GitHub",
+    site: "公式サイト"
+  }
+},
+de: {
+  tagline: "Lokale OCR · kein Upload",
+  h1a: "Text im Screenshot,",
+  h1b: "jetzt markierbar.",
+  intro: "SnapOCR ist eine Screenshot-OCR-Erweiterung für Chrome und Edge. Ziehen Sie einen Rahmen über einen beliebigen Seitenbereich, und der Text darin wird bearbeitbar und kopierbar. Die OCR-Engine läuft auf Ihrem Gerät: Screenshots werden nie hochgeladen, ein Konto ist nicht nötig, und es funktioniert auch ohne Netzwerk.",
+  cta: "Erweiterung holen",
+  note: "Kostenlos · Offline nutzbar · Kein Konto",
+  privacyLink: "Datenschutz",
+  mockText: "Erkannter Text",
+  mockLocal: "100 % lokal · kein Upload",
+  mockCopy: "Kopieren",
+  browsers: "Chrome & Edge",
+  nav: { features: "Funktionen", plans: "Free & Pro", privacy: "Datenschutz", support: "Unterstützen" },
+  features: {
+    title: "Was sie kann",
+    sub: "Ein kleines Werkzeug mit einer klaren Aufgabe: Text schnell herausholen, ohne den Bildschirm irgendwohin zu senden.",
+    items: [
+      { ic: "🔒", t: "Lokal gedacht", d: "OCR-Engine und Sprachdaten sind in der Erweiterung enthalten. Die Erkennung läuft im Browser, das Bild wird beim Schließen des Fensters verworfen." },
+      { ic: "✈️", t: "Funktioniert offline", d: "Englisch und Chinesisch (vereinfacht) sind enthalten und brauchen kein Netz. Die sieben weiteren Sprachen sind Teil von Pro — einmal geladen, laufen sie offline." },
+      { ic: "🖱️", t: "Zwei Einstiege", d: "Rechtsklick auf die Seite und SnapOCR wählen, oder den Symbolleisten-Button klicken. Dann Rahmen ziehen." },
+      { ic: "✏️", t: "Bearbeitbares Ergebnis", d: "OCR ist gut, nicht perfekt. Fehler lassen sich vor dem Kopieren direkt korrigieren." },
+      { ic: "🖥️", t: "Scharf auf HiDPI", d: "Der Zuschnitt nutzt den echten device pixel ratio statt ein 1x-Bild zu strecken." },
+      { ic: "🛡️", t: "Minimale Rechte", d: "Kein dauerhafter Zugriff auf alle Seiten. Das Auswahl-Overlay wird nur während der Aufnahme injiziert." }
+    ]
+  },
+  plans: {
+    title: "Kostenlos vs Pro",
+    sub: "Die kostenlose Version bleibt dauerhaft. Pro fügt zwei Dinge hinzu und nimmt nichts weg.",
+    colFeature: "Funktion", colFree: "Free", colPro: "Pro",
+    rows: [
+      ["Aufnahmen pro Tag", "20 / Tag", "Unbegrenzt"],
+      ["Offline-Erkennung (EN / 简体中文)", "✓", "✓"],
+      ["7 weitere Sprachen", "—", "✓"],
+      ["Verlauf", "10 Einträge", "200 Einträge"],
+      ["TXT-Export", "—", "✓"]
+    ],
+    note: "Einmaliger Kauf — kein Abo, keine Verlängerung. Eine Lizenz gilt für zwei Browser; nach dem Entfernen wird der Platz wieder frei.",
+    cta: "Pro holen"
+  },
+  privacy: {
+    title: "Datenschutz by design",
+    p1: "Screenshots und erkannter Text verlassen den Browser nie. Keine Analyse, keine Werbung, kein Tracking, kein Konto — und kein OCR-Server hinter der Erweiterung.",
+    p2: "Netzwerkanfragen gibt es nur in zwei optionalen Fällen, und keiner überträgt Seiteninhalte.",
+    bullets: [
+      "Erkennung läuft lokal mit der mitgelieferten OCR-Engine",
+      "Kein Lesen von Verlauf oder Cookies",
+      "Einziger ausgehender Traffic: einmaliger Download der sieben Pro-Sprachpakete",
+      "Die Lizenzprüfung (nur Pro) sendet Installations-ID und Browserdaten, nie Screenshots"
+    ]
+  },
+  support: {
+    kicker: "Entwickler unterstützen",
+    title: "💌 Eine Notiz an Sie",
+    p1: "Danke, dass Sie SnapOCR nutzen. Ich habe es gebaut, weil jedes andere Bild-zu-Text-Werkzeug einen Upload, eine Anmeldung oder einen Server verlangt — nichts davon gehört in ein so kleines Werkzeug.",
+    p2: "Wenn SnapOCR Ihnen etwas Tippen erspart, ist das bereits die beste Belohnung. Wenn Sie mir ☕ einen Kaffee spendieren möchten, hält das diese kleinen Werkzeuge am Leben.",
+    disclaimer: "Ko-fi-Spenden sind völlig freiwillig und beeinflussen keine Funktionen. Sponsoring ist nicht an Funktionen gebunden.",
+    hint: "Klicken Sie unten, um die Ko-fi-Seite zu öffnen",
+    btn: "Kaffee spendieren"
+  },
+  footer: {
+    copy: "© 2026 SnapOCR",
+    more: "Weitere Erweiterungen",
+    privacy: "Datenschutz",
+    github: "GitHub",
+    site: "Website"
+  }
+}
+,es: {
+  tagline: "OCR local · sin subidas",
+  h1a: "El texto de una captura,",
+  h1b: "ahora seleccionable.",
+  intro: "SnapOCR es una extensión de OCR por captura para Chrome y Edge. Arrastra un rectángulo sobre cualquier parte de una página y el texto se vuelve editable y copiable. El motor OCR se ejecuta en tu dispositivo: las capturas nunca se suben, no hace falta cuenta y sigue funcionando sin conexión.",
+  cta: "Obtener la extensión",
+  note: "Gratis · Funciona sin conexión · Sin cuenta",
+  privacyLink: "Política de privacidad",
+  mockText: "Texto reconocido",
+  mockLocal: "100% local · sin subidas",
+  mockCopy: "Copiar",
+  browsers: "Chrome & Edge",
+  nav: { features: "Funciones", plans: "Gratis y Pro", privacy: "Privacidad", support: "Apoyar" },
+  features: {
+    title: "Todo lo que hace",
+    sub: "Una herramienta pequeña con un trabajo concreto: sacar el texto rápido, sin enviar tu pantalla a ningún sitio.",
+    items: [
+      { ic: "🔒", t: "Local por diseño", d: "El motor OCR y los datos de idioma van dentro de la extensión. El reconocimiento ocurre en tu navegador y la imagen se descarta al cerrar la ventana." },
+      { ic: "✈️", t: "Funciona sin conexión", d: "Inglés y chino simplificado están incluidos y no necesitan red. Los otros siete idiomas son parte de Pro: se descargan una vez y luego funcionan offline." },
+      { ic: "🖱️", t: "Dos formas de empezar", d: "Haz clic derecho en la página y elige SnapOCR, o pulsa el botón de la barra. Luego arrastra un recuadro." },
+      { ic: "✏️", t: "Resultado editable", d: "El OCR es bueno, no perfecto. Corrige un carácter mal leído antes de copiar o exportar." },
+      { ic: "🖥️", t: "Nítido en HiDPI", d: "El recorte usa el device pixel ratio real en lugar de estirar una captura 1x." },
+      { ic: "🛡️", t: "Permisos mínimos", d: "Sin acceso permanente a todos los sitios. La capa de selección solo se inyecta durante la captura." }
+    ]
+  },
+  plans: {
+    title: "Gratis vs Pro",
+    sub: "La versión gratuita es permanente. Pro añade dos cosas y no quita ninguna.",
+    colFeature: "Función", colFree: "Gratis", colPro: "Pro",
+    rows: [
+      ["Capturas por día", "20 / día", "Ilimitadas"],
+      ["Reconocimiento sin conexión (EN / 简体中文)", "✓", "✓"],
+      ["Los otros 7 idiomas", "—", "✓"],
+      ["Historial", "10 registros", "200 registros"],
+      ["Exportación TXT", "—", "✓"]
+    ],
+    note: "Compra única: sin suscripción ni renovaciones. Una licencia activa dos navegadores; al desactivarla se libera la plaza.",
+    cta: "Obtener Pro"
+  },
+  privacy: {
+    title: "Privacidad por diseño",
+    p1: "Las capturas y el texto reconocido nunca salen del navegador. Sin analítica, sin publicidad, sin rastreo, sin cuenta, y sin ningún servidor OCR detrás de la extensión.",
+    p2: "Las peticiones de red se limitan a dos casos opcionales, y ninguno transporta contenido de páginas.",
+    bullets: [
+      "El reconocimiento se ejecuta en local con el motor OCR incluido",
+      "No se lee el historial de navegación ni las cookies",
+      "Único tráfico saliente: la descarga única de los siete paquetes de idioma Pro",
+      "La validación de licencia (solo Pro) envía un ID de instalación y datos básicos, nunca capturas"
+    ]
+  },
+  support: {
+    kicker: "Apoyar al desarrollador",
+    title: "💌 Una nota para ti",
+    p1: "Gracias por usar SnapOCR. Lo construí porque todas las demás herramientas de imagen a texto me pedían subir la captura, iniciar sesión o esperar a un servidor: nada de eso encaja en una herramienta tan pequeña.",
+    p2: "Si SnapOCR te ahorra algo de tecleo, esa ya es la mejor recompensa. Si te apetece ☕ invitarme a un café, ayuda de verdad a mantener estas utilidades pequeñas.",
+    disclaimer: "Las donaciones por Ko-fi son totalmente voluntarias y no afectan a ninguna función. El patrocinio no está ligado a la funcionalidad de la extensión.",
+    hint: "Haz clic en el botón para visitar la página de Ko-fi",
+    btn: "Invítame a un café"
+  },
+  footer: {
+    copy: "© 2026 SnapOCR",
+    more: "Más extensiones",
+    privacy: "Privacidad",
+    github: "GitHub",
+    site: "Sitio web"
+  }
+},
+fr: {
+  tagline: "OCR locale · aucun envoi",
+  h1a: "Le texte d'une capture,",
+  h1b: "désormais sélectionnable.",
+  intro: "SnapOCR est une extension d'OCR par capture pour Chrome et Edge. Tracez un rectangle sur n'importe quelle zone d'une page et le texte devient modifiable et copiable. Le moteur OCR s'exécute sur votre appareil : les captures ne sont jamais envoyées, aucun compte n'est requis, et tout continue de fonctionner sans réseau.",
+  cta: "Obtenir l'extension",
+  note: "Gratuit · Fonctionne hors ligne · Sans compte",
+  privacyLink: "Confidentialité",
+  mockText: "Texte reconnu",
+  mockLocal: "100 % local · aucun envoi",
+  mockCopy: "Copier",
+  browsers: "Chrome & Edge",
+  nav: { features: "Fonctions", plans: "Gratuit et Pro", privacy: "Confidentialité", support: "Soutenir" },
+  features: {
+    title: "Tout ce qu'elle fait",
+    sub: "Un petit outil avec une tâche précise : extraire le texte vite, sans envoyer votre écran quelque part.",
+    items: [
+      { ic: "🔒", t: "Local par conception", d: "Le moteur OCR et les données de langue sont embarqués. La reconnaissance se fait dans votre navigateur et l'image est supprimée à la fermeture de la fenêtre." },
+      { ic: "✈️", t: "Fonctionne hors ligne", d: "L'anglais et le chinois simplifié sont inclus et ne demandent aucun réseau. Les sept autres langues font partie de Pro — un téléchargement, puis elles fonctionnent hors ligne." },
+      { ic: "🖱️", t: "Deux façons de démarrer", d: "Clic droit sur la page puis choisissez SnapOCR, ou cliquez sur le bouton de la barre. Tracez ensuite un cadre." },
+      { ic: "✏️", t: "Résultat modifiable", d: "L'OCR est bon, pas parfait. Corrigez un caractère mal lu avant de copier ou d'exporter." },
+      { ic: "🖥️", t: "Net en HiDPI", d: "Le recadrage utilise le device pixel ratio réel au lieu d'étirer une capture 1x." },
+      { ic: "🛡️", t: "Permissions minimales", d: "Aucun accès permanent à tous les sites. La couche de sélection n'est injectée que pendant la capture." }
+    ]
+  },
+  plans: {
+    title: "Gratuit vs Pro",
+    sub: "La version gratuite est permanente. Pro ajoute deux choses et n'en retire aucune.",
+    colFeature: "Fonction", colFree: "Gratuit", colPro: "Pro",
+    rows: [
+      ["Captures par jour", "20 / jour", "Illimitées"],
+      ["Reconnaissance hors ligne (EN / 简体中文)", "✓", "✓"],
+      ["Les 7 autres langues", "—", "✓"],
+      ["Historique", "10 entrées", "200 entrées"],
+      ["Export TXT", "—", "✓"]
+    ],
+    note: "Achat unique — sans abonnement ni renouvellement. Une licence active deux navigateurs ; la désactivation libère la place.",
+    cta: "Obtenir Pro"
+  },
+  privacy: {
+    title: "Confidentiel par conception",
+    p1: "Les captures et le texte reconnu ne quittent jamais le navigateur. Aucune analyse, aucune publicité, aucun pistage, aucun compte — et aucun serveur OCR derrière l'extension.",
+    p2: "Les requêtes réseau se limitent à deux cas facultatifs, et aucun ne transporte le contenu des pages.",
+    bullets: [
+      "La reconnaissance s'exécute en local avec le moteur OCR embarqué",
+      "Aucune lecture de l'historique de navigation ni des cookies",
+      "Seul trafic sortant : le téléchargement unique des sept paquets de langue Pro",
+      "La vérification de licence (Pro uniquement) envoie un identifiant d'installation et des données de base, jamais de captures"
+    ]
+  },
+  support: {
+    kicker: "Soutenir le développeur",
+    title: "💌 Un mot pour vous",
+    p1: "Merci d'utiliser SnapOCR. Je l'ai créé parce que tous les autres outils d'image vers texte demandaient un envoi, une connexion ou un serveur : rien de tout cela n'a sa place dans un outil aussi petit.",
+    p2: "Si SnapOCR vous évite de retaper du texte, c'est déjà la meilleure récompense. Si vous souhaitez ☕ m'offrir un café, cela aide vraiment à maintenir ces petits utilitaires.",
+    disclaimer: "Les dons Ko-fi sont entièrement volontaires et n'affectent aucune fonctionnalité. Le sponsoring n'est pas lié au fonctionnement de l'extension.",
+    hint: "Cliquez sur le bouton pour ouvrir la page Ko-fi",
+    btn: "Offrez-moi un café"
+  },
+  footer: {
+    copy: "© 2026 SnapOCR",
+    more: "Autres extensions",
+    privacy: "Confidentialité",
+    github: "GitHub",
+    site: "Site web"
+  }
+}
+}
+};
+
+function get(obj, path) {
+  return path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), obj);
+}
+
+function render(lang) {
+  const L = MODEL.langs[lang] || MODEL.langs.en;
+
+  document.querySelectorAll('[data-k]').forEach(el => {
+    const v = get(L, el.getAttribute('data-k'));
+    if (typeof v === 'string') el.textContent = v;
+  });
+
+  // features
+  const fg = document.getElementById('feature-grid');
+  fg.textContent = '';
+  L.features.items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const ic = document.createElement('div');
+    ic.className = 'ico';
+    ic.textContent = item.ic;
+    const h3 = document.createElement('h3');
+    h3.textContent = item.t;
+    const p = document.createElement('p');
+    p.textContent = item.d;
+    card.append(ic, h3, p);
+    fg.appendChild(card);
+  });
+
+  // plans
+  const tb = document.getElementById('plan-rows');
+  tb.textContent = '';
+  L.plans.rows.forEach(row => {
+    const tr = document.createElement('tr');
+    const cells = [row[0], row[1], row[2]];
+    cells.forEach((val, i) => {
+      const td = document.createElement('td');
+      td.textContent = val;
+      if (i > 0) {
+        if (val === '✓') td.className = 'yes';
+        if (val === '—') td.className = 'no';
+      }
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+
+  // privacy bullets
+  const ul = document.getElementById('privacy-bullets');
+  ul.textContent = '';
+  L.privacy.bullets.forEach(b => {
+    const li = document.createElement('li');
+    li.textContent = b;
+    ul.appendChild(li);
+  });
+
+  document.getElementById('footer-copy').textContent = L.footer.copy;
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+  try { localStorage.setItem('snapocr_site_lang', lang); } catch (e) {}
+}
+
+document.getElementById('lang-select').addEventListener('change', e => render(e.target.value));
+
+(function init() {
+  let lang = 'en';
+  try {
+    const saved = localStorage.getItem('snapocr_site_lang');
+    const nav = (navigator.language || 'en').toLowerCase();
+    if (saved && MODEL.langs[saved]) lang = saved;
+    else if (nav.startsWith('zh')) lang = 'zh';
+    else if (nav.startsWith('ja')) lang = 'ja';
+    else if (nav.startsWith('de')) lang = 'de';
+    else if (nav.startsWith('es')) lang = 'es';
+    else if (nav.startsWith('fr')) lang = 'fr';
+  } catch (e) {}
+  document.getElementById('lang-select').value = lang;
+  render(lang);
+})();
+</script>
+</body>
+</html>
