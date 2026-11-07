@@ -3,102 +3,243 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VKT SnapOCR — Privacy Policy</title>
-<meta name="description" content="Privacy policy for the SnapOCR browser extension. Local OCR, no uploads, no tracking.">
+<title>SnapOCR — Privacy Policy</title>
+<meta name="description" content="SnapOCR privacy policy: what is stored on your device, when the extension uses the network, and how to delete your data.">
 <link rel="icon" href="icons/icon128.png">
 <style>
-:root{--accent:#4f6ef7;--accent-strong:#3d5bef;--accent-soft:#eef1fe;--ink:#1f2430;--body:#4b5568;--muted:#8a919e;--line:#e6e8ee;--bg:#f7f8fb;--surface:#fff}
+:root{
+  --accent:#4f6ef7;
+  --accent-2:#8ea2ff;
+  --bg:#f7f8fb;
+  --surface:#ffffff;
+  --ink:#1f2430;
+  --body:#4b5568;
+  --muted:#8a919e;
+  --line:#e6e8ee;
+  --tint:#eef1fe;
+  --tint:color-mix(in srgb, var(--accent) 8%, #ffffff);
+  --tint-strong:#e3e8fd;
+  --tint-strong:color-mix(in srgb, var(--accent) 14%, #ffffff);
+  --shadow:0 18px 45px rgba(31,36,48,.10);
+  --shadow-soft:0 8px 24px rgba(31,36,48,.06);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--body);font-family:-apple-system,"Segoe UI",Roboto,"Microsoft YaHei",Arial,sans-serif;font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{
+  margin:0;
+  color:var(--body);
+  background:radial-gradient(900px 420px at 100% -8%, color-mix(in srgb, var(--accent-2) 12%, #ffffff) 0%, rgba(255,255,255,0) 70%), var(--bg);
+  font-family:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%}
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
-.wrap{max-width:840px;margin:0 auto;padding:0 24px}
-header{position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line);background:rgba(247,248,251,.9);backdrop-filter:blur(10px)}
-.topbar-inner{display:flex;align-items:center;justify-content:space-between;height:60px}
-.brand{display:flex;align-items:center;gap:9px;font-weight:800;color:var(--ink)}
-.brand img{width:24px;height:24px;border-radius:6px}
-.top-actions{display:flex;align-items:center;gap:9px}
+button,select{font:inherit}
+[hidden]{display:none !important}
+::selection{background:color-mix(in srgb, var(--accent) 22%, #ffffff);color:var(--ink)}
+:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 55%, #ffffff);outline-offset:3px}
+.wrap{width:min(1120px, calc(100% - 40px));margin:0 auto}
+.topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar-inner{display:flex;align-items:center;gap:18px;height:70px}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-size:16px;font-weight:750;letter-spacing:-.015em;white-space:nowrap}
+.brand:hover{text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:9px;background:#fff;border:1px solid var(--line)}
+.nav-links{display:flex;align-items:center;gap:20px;margin-left:auto;font-size:13.5px;font-weight:650}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover{color:var(--accent);text-decoration:none}
+.top-actions{display:flex;align-items:center;gap:9px;margin-left:auto}
+.nav-links + .top-actions{margin-left:0}
 .icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--muted)}
-.icon-btn:hover{color:var(--accent);border-color:#cdd7fe;text-decoration:none}
-.lang{appearance:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 30px 9px 11px;font-size:13px;color:var(--ink);cursor:pointer;
+.icon-btn:hover{color:var(--accent);border-color:color-mix(in srgb, var(--accent) 26%, var(--line));text-decoration:none}
+.lang{
+  appearance:none;-webkit-appearance:none;
+  border:1px solid var(--line);
+  background-color:#fff;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364718a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;background-size:12px}
-main{padding:44px 0 60px}
-h1{font-size:30px;line-height:1.2;color:var(--ink);margin:0 0 6px;letter-spacing:-.02em}
-.updated{font-size:13px;color:var(--muted);margin-bottom:24px}
-.summary{background:var(--accent-soft);border-radius:14px;padding:18px 20px;font-size:14.5px;margin-bottom:8px;color:#2c3d6e}
-h2{font-size:18px;color:var(--ink);margin:34px 0 10px;letter-spacing:-.01em}
-h2 .num{color:var(--accent);margin-right:6px}
-p{margin:0 0 12px}
-ul{margin:0 0 14px;padding-left:20px}
-li{margin-bottom:7px}
-section.doc section h2:first-child{margin-top:0}
-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px;margin-bottom:16px}
-th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-th{background:#fbfcfe;color:var(--ink);font-size:13px}
-tr:last-child td{border-bottom:none}
-code{background:#eef1f6;border-radius:5px;padding:1px 6px;font-size:13px}
-.callout{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13.5px;margin:14px 0;color:var(--ink)}
-footer{border-top:1px solid var(--line);background:var(--surface);padding:22px 0;font-size:13px;color:var(--muted)}
-.foot{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center}
-.foot a{color:var(--body)}
-@media (max-width:560px){.foot{flex-direction:column;align-items:flex-start}}
+  background-repeat:no-repeat;
+  background-position:right 10px center;
+  background-size:12px;
+  color:var(--ink);
+  border-radius:10px;
+  padding:9px 32px 9px 11px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  max-width:150px;
+}
+.lang:hover{border-color:color-mix(in srgb, var(--accent) 26%, var(--line))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 20px;border-radius:12px;border:1px solid transparent;font-weight:700;font-size:14.5px;line-height:1.2;transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 12px 26px color-mix(in srgb, var(--accent) 26%, transparent)}
+.btn-primary:hover{background:color-mix(in srgb, var(--accent) 90%, var(--ink));box-shadow:0 15px 30px color-mix(in srgb, var(--accent) 30%, transparent)}
+.btn-secondary{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-secondary:hover{border-color:color-mix(in srgb, var(--accent) 28%, var(--line))}
+.btn-quiet{background:transparent;color:var(--muted);padding:0 8px}
+.btn-quiet:hover{color:var(--accent)}
+.site-footer{margin-top:48px;border-top:1px solid var(--line);background:rgba(255,255,255,.8);padding:32px 0}
+.footer-inner{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between}
+.footer-brand{display:flex;align-items:center;gap:11px;color:var(--ink);font-size:14px;font-weight:700}
+.footer-brand img{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.footer-brand .copy{display:block;color:var(--muted);font-size:12px;font-weight:500;line-height:1.4;margin-top:1px}
+.footer-links{display:flex;flex-wrap:wrap;gap:9px 18px;align-items:center;font-size:13px;font-weight:600}
+.footer-links a{color:var(--muted)}
+.footer-links a:hover{color:var(--accent);text-decoration:none}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .topbar-inner{height:62px}
+  .wrap{width:calc(100% - 32px)}
+}
+@media (max-width:560px){
+  .brand span{display:none}
+  .lang{max-width:124px}
+  .site-footer{padding:26px 0}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none !important;animation:none !important}
+}
+
+.policy-hero{padding:42px 0 8px}
+.policy-hero-card{position:relative;overflow:hidden;background:linear-gradient(135deg,#ffffff 0%, color-mix(in srgb, var(--accent) 7%, #ffffff) 58%, color-mix(in srgb, var(--accent-2) 16%, #ffffff) 100%);border:1px solid var(--line);border-radius:26px;padding:42px 46px 36px;box-shadow:var(--shadow)}
+.policy-hero-card::after{content:"";position:absolute;width:360px;height:360px;right:-110px;top:-160px;border-radius:50%;border:1px solid color-mix(in srgb, var(--accent) 22%, #ffffff);box-shadow:0 0 0 48px color-mix(in srgb, var(--accent) 5%, transparent);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid color-mix(in srgb, var(--accent) 22%, var(--line));color:var(--accent);font-size:11.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.policy-hero h1{position:relative;z-index:1;margin:16px 0 0;color:var(--ink);font-size:clamp(34px,4.4vw,50px);line-height:1.06;letter-spacing:-.035em;font-weight:800}
+.policy-hero h1 .h1-sub{color:var(--accent);font-weight:780}
+.summary{position:relative;z-index:1;max-width:860px;margin:16px 0 20px;color:var(--body);font-size:15.5px;line-height:1.75}
+.summary strong{color:var(--ink);font-weight:700}
+.chips{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.8);color:var(--ink);font-size:12.5px;font-weight:650}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-2)}
+.updated{position:relative;z-index:1;display:flex;align-items:center;gap:7px;margin:18px 0 0;color:var(--muted);font-size:12.5px;font-weight:550}
+.updated svg{color:var(--accent)}
+.policy-layout{display:grid;grid-template-columns:272px minmax(0,1fr);gap:28px;align-items:start;padding:32px 0 38px}
+.toc{position:sticky;top:92px;max-height:calc(100vh - 120px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 17px;box-shadow:var(--shadow-soft)}
+.toc-title{margin:2px 0 12px;color:var(--ink);font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+#p-toc{display:grid;gap:3px}
+#p-toc a{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;align-items:baseline;padding:8px 10px;border-radius:10px;border:1px solid transparent;color:var(--muted);font-size:14px;line-height:1.45}
+#p-toc a span{color:color-mix(in srgb, var(--accent) 58%, var(--muted));font-size:11.5px;font-weight:800;letter-spacing:.04em}
+#p-toc a:hover{background:var(--tint);color:var(--ink);text-decoration:none}
+#p-toc a.active{background:var(--tint);border-color:color-mix(in srgb, var(--accent) 18%, var(--line));color:var(--ink)}
+#p-toc a.active span{color:var(--accent)}
+.policy-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 32px;box-shadow:var(--shadow-soft)}
+.policy-card + .policy-card{margin-top:15px}
+.policy-card h2{display:flex;align-items:baseline;gap:11px;margin:0 0 16px;color:var(--ink);font-size:21px;line-height:1.3;letter-spacing:-.015em;font-weight:760}
+.policy-num{flex:none;padding:4px 8px;border-radius:8px;background:var(--tint);color:var(--accent);font-size:11.5px;font-weight:800;letter-spacing:.04em}
+.policy-body{color:var(--body);font-size:15px;line-height:1.75;overflow-wrap:anywhere}
+.policy-body p{margin:0 0 14px}
+.policy-body p:last-child{margin-bottom:0}
+.policy-body strong{color:var(--ink);font-weight:700}
+.policy-body em{color:var(--body)}
+.policy-body a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.policy-body a:hover{color:color-mix(in srgb, var(--accent) 80%, var(--ink))}
+.policy-body code{display:inline;padding:1px 6px;border:1px solid var(--line);border-radius:6px;background:#f3f6fb;color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em}
+.policy-body ul{display:grid;gap:8px;margin:0 0 15px;padding:0;list-style:none}
+.policy-body ul:last-child{margin-bottom:0}
+.policy-body li{position:relative;padding-left:21px}
+.policy-body li::before{content:"";position:absolute;left:2px;top:.62em;width:7px;height:7px;border-radius:2px;background:var(--accent-2)}
+.policy-body h3{margin:21px 0 8px;color:var(--ink);font-size:15.5px;line-height:1.4;font-weight:750}
+.policy-body h3:first-child{margin-top:0}
+.policy-body .note{margin:15px 0 0;padding:13px 15px;border-left:3px solid var(--accent);border-radius:10px;background:var(--tint);color:var(--body);font-size:13.5px;line-height:1.65}
+.table-wrap{margin:15px 0;overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.policy-body table{width:100%;min-width:480px;border-collapse:collapse;font-size:13.5px;line-height:1.55}
+.policy-body th{padding:10px 13px;border-bottom:1px solid var(--line);background:#f4f7fc;color:var(--ink);text-align:left;font-weight:700}
+.policy-body td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+.policy-body th:first-child,.policy-body td:first-child{min-width:150px}
+.policy-body tr:last-child td{border-bottom:none}
+.policy-body table code{white-space:nowrap}
+@media (max-width:900px){
+  .policy-hero{padding:26px 0 4px}
+  .policy-hero-card{padding:30px 24px 28px;border-radius:22px}
+  .policy-layout{grid-template-columns:1fr;gap:16px;padding:22px 0 30px}
+  .toc{position:static;max-height:none;padding:14px}
+  #p-toc{grid-template-columns:1fr 1fr}
+  .policy-card{padding:23px 20px}
+  .policy-card h2{font-size:19px}
+}
+@media (max-width:600px){
+  #p-toc{grid-template-columns:1fr}
+  .policy-card{padding:21px 17px}
+  .policy-body{font-size:14.5px}
+}
 </style>
 </head>
 <body>
-
-<header>
+<header class="topbar">
   <div class="wrap topbar-inner">
-    <a class="brand" href="index.html"><img src="icons/icon128.png" alt=""><span>SnapOCR</span></a>
+    <a class="brand" href="index.html"><img src="icons/icon128.png" alt="" width="32" height="32"><span>SnapOCR</span></a>
     <div class="top-actions">
-      <a class="icon-btn" href="https://github.com/annmax1983/SnapOCR" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 5.96c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-      </a>
-      <select class="lang" id="p-lang" aria-label="Language">
-        <option value="en">English</option>
-        <option value="zh">简体中文</option>
-        <option value="ja">日本語</option>
-        <option value="de">Deutsch</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-      </select>
-      <a class="icon-btn" href="index.html" aria-label="Home" title="Home">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v10h12V10"/></svg>
-      </a>
+      <a class="icon-btn" href="https://github.com/annmax1983/SnapOCR" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 5.96c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg></a>
+      <select class="lang" id="p-lang" aria-label="Language"><option value="en">English</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="de">Deutsch</option><option value="es">Español</option><option value="fr">Français</option></select>
+      <a class="icon-btn" href="index.html" aria-label="Home" title="Home"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v10h12V10"/></svg></a>
     </div>
   </div>
 </header>
-
-<main class="wrap">
-  <h1 id="doc-title">Privacy Policy</h1>
-  <div class="updated" id="doc-updated">SnapOCR browser extension · Last updated: November 5, 2026</div>
-  <div class="summary" id="doc-summary"></div>
-  <div id="doc-sections"></div>
-</main>
-
-<footer>
-  <div class="wrap foot">
-    <div id="foot-copy">© 2026 SnapOCR</div>
-    <div>
-      <a href="index.html" data-k="home">Home</a> ·
-      <a href="https://annmax1983.com/extensions.html" target="_blank" rel="noopener" data-k="more">More extensions</a> ·
-      <a href="https://www.annmax1983.com/extensions/snapocr" target="_blank" rel="noopener" data-k="site">Website</a> ·
-      <a href="mailto:support@annmax1983.com">support@annmax1983.com</a>
+<main>
+  <section class="policy-hero">
+    <div class="wrap">
+      <div class="policy-hero-card">
+        <span class="eyebrow" id="p-eyebrow">Privacy Policy</span>
+        <h1><span id="p-h1">SnapOCR</span> <span class="h1-sub" id="p-h1-sub">Privacy Policy</span></h1>
+        <p class="summary" id="p-summary">SnapOCR does not collect, store or transmit any personal data. Screenshots and recognised text are processed entirely on your device. The extension makes no network requests at all unless you use a non-bundled language or activate a Pro licence.</p>
+        <div class="chips" id="p-chips"><span class="chip">100% local OCR</span><span class="chip">No account</span><span class="chip">No analytics</span><span class="chip">Licence optional</span></div>
+        <p class="updated"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="p-updated">Last updated: November 2026</span></p>
+      </div>
+    </div>
+  </section>
+  <div class="wrap policy-layout">
+    <aside class="toc">
+      <p class="toc-title" id="p-toc-title">On this page</p>
+      <nav id="p-toc" aria-label="On this page">
+<a href="#section-1"><span>01</span>Data collection</a>
+<a href="#section-2"><span>02</span>How SnapOCR works</a>
+<a href="#section-3"><span>03</span>Permissions</a>
+<a href="#section-4"><span>04</span>Network requests</a>
+<a href="#section-5"><span>05</span>Local storage</a>
+<a href="#section-6"><span>06</span>Licence data</a>
+<a href="#section-7"><span>07</span>Third parties</a>
+<a href="#section-8"><span>08</span>Your choices</a>
+<a href="#section-9"><span>09</span>Contact</a>
+      </nav>
+    </aside>
+    <div id="p-sections">
+<article class="policy-card" id="section-1"><h2><span class="policy-num">01</span>Data collection</h2><div class="policy-body"><p>SnapOCR collects no personal information. Specifically:</p><ul><li>No account, email address or name is requested.</li><li>No screenshots, recognised text or clipboard contents are transmitted.</li><li>No browsing history, tab URLs, cookies or form data are read or stored.</li><li>No analytics, crash reports or telemetry are sent.</li></ul><div class="note">The screenshot you select exists only in the browser's memory, is cropped locally, and is discarded when the result window closes.</div></div></article>
+<article class="policy-card" id="section-2"><h2><span class="policy-num">02</span>How SnapOCR works</h2><div class="policy-body"><p>The OCR engine (Tesseract.js, compiled to WebAssembly) and the language data for English and Simplified Chinese are bundled with the extension. When you drag a selection, the visible tab is captured with the browser's own screenshot API, cropped on your device with a canvas, and passed to the local engine. Nothing is uploaded at any step.</p></div></article>
+<article class="policy-card" id="section-3"><h2><span class="policy-num">03</span>Permissions</h2><div class="policy-body"><ul><li><code>activeTab</code> — reads the current tab only at the moment you start a capture; there is no standing access to sites you have not acted on.</li><li><code>scripting</code> — injects the selection overlay into the current tab when you invoke a capture.</li><li><code>contextMenus</code> — adds the right-click entry.</li><li><code>storage</code> / <code>unlimitedStorage</code> — saves settings, history and cached language packs on your device.</li><li><code>clipboardWrite</code> — copies recognised text when you click Copy.</li><li>Host permission <code>api.annmax1983.com</code> — used only for optional Pro licence activation and validation.</li></ul></div></article>
+<article class="policy-card" id="section-4"><h2><span class="policy-num">04</span>Network requests</h2><div class="policy-body"><p>There are exactly two situations in which SnapOCR makes an outbound request, and neither includes page content or screenshots:</p><ul><li><b>Language packs.</b> If you choose one of the seven non-bundled languages, its model file is downloaded once from a public CDN and then cached on your device.</li><li><b>Licence check.</b> Only if you activate a Pro licence. A random installation identifier and basic browser metadata are sent, approximately every two hours while the extension is in use.</li></ul><p>If you never activate a licence and stay with the bundled languages, SnapOCR makes no network requests at all.</p></div></article>
+<article class="policy-card" id="section-5"><h2><span class="policy-num">05</span>Local storage</h2><div class="policy-body"><p>The following is stored on your device and never synced to us:</p><ul><li>Your selected recognition language and interface preferences.</li><li>Recognition history, capped at 10 entries on the free plan and 200 on Pro.</li><li>Cached language models, so offline recognition keeps working.</li><li>Licence state, if you activated one.</li></ul><p>Clearing history in the popup or removing the extension deletes this data from your device.</p></div></article>
+<article class="policy-card" id="section-6"><h2><span class="policy-num">06</span>Licence data</h2><div class="policy-body"><p>Pro licences are issued by our payment provider and validated through our own licence service. The service receives the licence key you enter, a randomly generated installation identifier, the extension identifier and basic browser metadata (browser name and version, UI language, time zone, user agent). It does not receive screenshots, recognised text or page content. Licence records are kept to enforce activation limits and to handle support requests.</p></div></article>
+<article class="policy-card" id="section-7"><h2><span class="policy-num">07</span>Third parties</h2><div class="policy-body"><p>We do not sell, rent or share data with advertisers or data brokers. Two service providers are involved strictly to operate the product: our payment provider (licence purchase) and our hosting provider (licence validation and language-pack delivery). No third-party analytics or advertising scripts are included in the extension.</p></div></article>
+<article class="policy-card" id="section-8"><h2><span class="policy-num">08</span>Your choices</h2><div class="policy-body"><ul><li>Use SnapOCR entirely offline with the bundled languages, with no licence and no network traffic.</li><li>Clear recognition history at any time from the popup.</li><li>Deactivate a licence from Settings to free the activation slot.</li><li>Uninstall the extension, which removes all locally stored data.</li></ul></div></article>
+<article class="policy-card" id="section-9"><h2><span class="policy-num">09</span>Contact</h2><div class="policy-body"><p>Questions about this policy: <a href="mailto:support@annmax1983.com">support@annmax1983.com</a>. We may update this page when the extension changes; the date at the top always reflects the current version.</p></div></article>
     </div>
   </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <img src="icons/icon128.png" alt="" width="30" height="30">
+      <div>SnapOCR<span class="copy">© 2026 SnapOCR</span></div>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="index.html" id="p-footer-home">Home</a>
+      <a href="privacy-policy.html" id="p-footer-privacy">Privacy Policy</a>
+      <a href="https://github.com/annmax1983/SnapOCR" target="_blank" rel="noopener" id="p-footer-github">GitHub</a>
+      <a href="https://annmax1983.com/extensions/snapocr" target="_blank" rel="noopener" id="p-footer-site">Website</a>
+      <a href="mailto:support@annmax1983.com" id="p-footer-email">Email</a>
+    </nav>
+  </div>
 </footer>
-
 <script>
-const MODEL = {
-langs: {
-en: {
-  title: "Privacy Policy",
-  updated: "SnapOCR browser extension · Last updated: November 5, 2026",
+const MODEL = {"langs":{
+"en":{
   summary: "SnapOCR does not collect, store or transmit any personal data. Screenshots and recognised text are processed entirely on your device. The extension makes no network requests at all unless you use a non-bundled language or activate a Pro licence.",
-  copy: "© 2026 SnapOCR",
-  home: "Home", more: "More extensions", site: "Website",
   sections: [
-    { t: "Data collection", html: "<p>SnapOCR collects no personal information. Specifically:</p><ul><li>No account, email address or name is requested.</li><li>No screenshots, recognised text or clipboard contents are transmitted.</li><li>No browsing history, tab URLs, cookies or form data are read or stored.</li><li>No analytics, crash reports or telemetry are sent.</li></ul><div class='callout'>The screenshot you select exists only in the browser's memory, is cropped locally, and is discarded when the result window closes.</div>" },
+    { t: "Data collection", html: "<p>SnapOCR collects no personal information. Specifically:</p><ul><li>No account, email address or name is requested.</li><li>No screenshots, recognised text or clipboard contents are transmitted.</li><li>No browsing history, tab URLs, cookies or form data are read or stored.</li><li>No analytics, crash reports or telemetry are sent.</li></ul><div class='note'>The screenshot you select exists only in the browser's memory, is cropped locally, and is discarded when the result window closes.</div>" },
     { t: "How SnapOCR works", html: "<p>The OCR engine (Tesseract.js, compiled to WebAssembly) and the language data for English and Simplified Chinese are bundled with the extension. When you drag a selection, the visible tab is captured with the browser's own screenshot API, cropped on your device with a canvas, and passed to the local engine. Nothing is uploaded at any step.</p>" },
     { t: "Permissions", html: "<ul><li><code>activeTab</code> — reads the current tab only at the moment you start a capture; there is no standing access to sites you have not acted on.</li><li><code>scripting</code> — injects the selection overlay into the current tab when you invoke a capture.</li><li><code>contextMenus</code> — adds the right-click entry.</li><li><code>storage</code> / <code>unlimitedStorage</code> — saves settings, history and cached language packs on your device.</li><li><code>clipboardWrite</code> — copies recognised text when you click Copy.</li><li>Host permission <code>api.annmax1983.com</code> — used only for optional Pro licence activation and validation.</li></ul>" },
     { t: "Network requests", html: "<p>There are exactly two situations in which SnapOCR makes an outbound request, and neither includes page content or screenshots:</p><ul><li><b>Language packs.</b> If you choose one of the seven non-bundled languages, its model file is downloaded once from a public CDN and then cached on your device.</li><li><b>Licence check.</b> Only if you activate a Pro licence. A random installation identifier and basic browser metadata are sent, approximately every two hours while the extension is in use.</li></ul><p>If you never activate a licence and stay with the bundled languages, SnapOCR makes no network requests at all.</p>" },
@@ -109,14 +250,10 @@ en: {
     { t: "Contact", html: "<p>Questions about this policy: <a href='mailto:support@annmax1983.com'>support@annmax1983.com</a>. We may update this page when the extension changes; the date at the top always reflects the current version.</p>" }
   ]
 },
-zh: {
-  title: "隐私政策",
-  updated: "SnapOCR 浏览器扩展 · 最后更新：2026 年 11 月 5 日",
+"zh":{
   summary: "SnapOCR 不收集、不存储、不传输任何个人数据。截图与识别结果完全在你的设备上处理。除非你使用非内置语言或激活 Pro 授权，扩展不会发起任何网络请求。",
-  copy: "© 2026 SnapOCR",
-  home: "首页", more: "更多扩展", site: "官方网站",
   sections: [
-    { t: "数据收集", html: "<p>SnapOCR 不收集任何个人信息。具体而言：</p><ul><li>不索取账号、邮箱或姓名。</li><li>不传输截图、识别结果或剪贴板内容。</li><li>不读取、不存储浏览记录、标签页网址、Cookie 或表单数据。</li><li>不发送使用统计、崩溃报告或遥测数据。</li></ul><div class='callout'>你框选的截图只存在于浏览器内存中，在本地完成裁剪，结果窗口关闭即被丢弃。</div>" },
+    { t: "数据收集", html: "<p>SnapOCR 不收集任何个人信息。具体而言：</p><ul><li>不索取账号、邮箱或姓名。</li><li>不传输截图、识别结果或剪贴板内容。</li><li>不读取、不存储浏览记录、标签页网址、Cookie 或表单数据。</li><li>不发送使用统计、崩溃报告或遥测数据。</li></ul><div class='note'>你框选的截图只存在于浏览器内存中，在本地完成裁剪，结果窗口关闭即被丢弃。</div>" },
     { t: "工作方式", html: "<p>OCR 引擎（Tesseract.js，编译为 WebAssembly）与英文、简体中文语言数据随扩展内置。你框选时，浏览器用自己的截图 API 截取当前可见区域，在本机用 canvas 裁剪后交给本地引擎识别。任何一步都不会上传。</p>" },
     { t: "权限说明", html: "<ul><li><code>activeTab</code> — 仅在你发起识别的那一刻读取当前标签页，不对未操作的网站保持常驻访问。</li><li><code>scripting</code> — 在你发起识别时向当前标签页注入选区层。</li><li><code>contextMenus</code> — 添加右键菜单项。</li><li><code>storage</code> / <code>unlimitedStorage</code> — 在本机保存设置、历史与语言包缓存。</li><li><code>clipboardWrite</code> — 点击「复制」时把识别结果写入剪贴板。</li><li>主机权限 <code>api.annmax1983.com</code> — 仅用于可选的 Pro 授权激活与校验。</li></ul>" },
     { t: "网络请求", html: "<p>SnapOCR 只在两种情况下发起对外请求，且都不包含页面内容或截图：</p><ul><li><b>语言包。</b>若你选择 7 种非内置语言之一，对应模型文件会从公共 CDN 下载一次，随后缓存在本机。</li><li><b>授权校验。</b>仅在你激活 Pro 授权后发生，使用期间大约每两小时一次，发送随机安装标识与基础浏览器信息。</li></ul><p>如果你不激活授权、只使用内置语言，SnapOCR 完全不发起任何网络请求。</p>" },
@@ -126,15 +263,11 @@ zh: {
     { t: "你的选择", html: "<ul><li>不激活授权、只使用内置语言，即可全程离线使用，零网络流量。</li><li>随时在弹窗中清空识别历史。</li><li>在设置中注销授权，释放激活名额。</li><li>卸载扩展，将删除全部本地数据。</li></ul>" },
     { t: "联系我们", html: "<p>关于本政策的疑问：<a href='mailto:support@annmax1983.com'>support@annmax1983.com</a>。扩展功能调整时我们可能更新本页面，页面顶部的日期始终反映当前版本。</p>" }
   ]
-}
-,ja: {
-  title: "プライバシーポリシー",
-  updated: "SnapOCR ブラウザー拡張 · 最終更新：2026 年 11 月 5 日",
+},
+"ja":{
   summary: "SnapOCR は個人データを収集・保存・送信しません。スクリーンショットと認識結果は完全に端末内で処理されます。同梱外の言語を使うか Pro ライセンスを有効化しない限り、拡張機能は一切ネットワーク通信を行いません。",
-  copy: "© 2026 SnapOCR",
-  home: "ホーム", more: "他の拡張機能", site: "公式サイト",
   sections: [
-    { t: "データ収集", html: "<p>SnapOCR は個人情報を収集しません。具体的には：</p><ul><li>アカウント・メールアドレス・名前は要求しません。</li><li>スクリーンショット・認識結果・クリップボードの内容は送信しません。</li><li>閲覧履歴・タブ URL・Cookie・フォームデータは読み取り・保存しません。</li><li>解析・クラッシュレポート・テレメトリーは送信しません。</li></ul><div class='callout'>選択したスクリーンショットはブラウザのメモリ上にのみ存在し、ローカルで切り取られ、結果ウィンドウを閉じると破棄されます。</div>" },
+    { t: "データ収集", html: "<p>SnapOCR は個人情報を収集しません。具体的には：</p><ul><li>アカウント・メールアドレス・名前は要求しません。</li><li>スクリーンショット・認識結果・クリップボードの内容は送信しません。</li><li>閲覧履歴・タブ URL・Cookie・フォームデータは読み取り・保存しません。</li><li>解析・クラッシュレポート・テレメトリーは送信しません。</li></ul><div class='note'>選択したスクリーンショットはブラウザのメモリ上にのみ存在し、ローカルで切り取られ、結果ウィンドウを閉じると破棄されます。</div>" },
     { t: "動作の仕組み", html: "<p>OCR エンジン（Tesseract.js、WebAssembly にコンパイル）と英語・簡体字中国語の言語データは拡張機能に同梱されています。範囲を選択すると、ブラウザ自身のスクリーンショット API で現在のタブを撮影し、端末上の canvas で切り取ってローカルエンジンに渡します。どの段階でもアップロードは行いません。</p>" },
     { t: "権限について", html: "<ul><li><code>activeTab</code> — キャプチャ開始の瞬間にだけ現在のタブを読み取ります。操作していないサイトへの常駐アクセスはありません。</li><li><code>scripting</code> — 実行時に選択オーバーレイを注入します。</li><li><code>contextMenus</code> — 右クリック項目を追加します。</li><li><code>storage</code> / <code>unlimitedStorage</code> — 設定・履歴・言語パックのキャッシュを端末に保存します。</li><li><code>clipboardWrite</code> — コピー時に認識結果をクリップボードへ書き込みます。</li><li>ホスト権限 <code>api.annmax1983.com</code> — 任意の Pro ライセンスの認証のみに使用。</li></ul>" },
     { t: "ネットワーク通信", html: "<p>外部通信が発生するのは次の 2 つの場面だけで、どちらもページ内容やスクリーンショットを含みません：</p><ul><li><b>言語パック。</b>同梱外 7 言語のいずれかを選ぶと、モデルファイルを公共 CDN から一度だけダウンロードし、端末にキャッシュします。</li><li><b>ライセンス確認。</b>Pro ライセンスを有効化した場合のみ。ランダムなインストール識別子と基本ブラウザ情報を、使用中は約 2 時間ごとに送信します。</li></ul><p>ライセンスを有効化せず同梱言語だけを使えば、SnapOCR は一切通信しません。</p>" },
@@ -145,32 +278,24 @@ zh: {
     { t: "お問い合わせ", html: "<p>本ポリシーに関するご質問：<a href='mailto:support@annmax1983.com'>support@annmax1983.com</a>。拡張機能の変更に合わせて本ページを更新することがあります。上部の日付が常に現在の版を示します。</p>" }
   ]
 },
-de: {
-  title: "Datenschutzerklärung",
-  updated: "SnapOCR-Browsererweiterung · Zuletzt aktualisiert: 5. November 2026",
+"de":{
   summary: "SnapOCR erhebt, speichert oder überträgt keinerlei personenbezogene Daten. Screenshots und erkannter Text werden vollständig auf Ihrem Gerät verarbeitet. Ohne nicht enthaltene Sprachpakete oder eine Pro-Lizenz stellt die Erweiterung keinerlei Netzwerkanfragen.",
-  copy: "© 2026 SnapOCR",
-  home: "Start", more: "Weitere Erweiterungen", site: "Website",
   sections: [
-    { t: "Datenerfassung", html: "<p>SnapOCR erfasst keine persönlichen Daten. Konkret:</p><ul><li>Kein Konto, keine E-Mail, kein Name wird abgefragt.</li><li>Keine Screenshots, erkannten Texte oder Zwischenablage-Inhalte werden übertragen.</li><li>Kein Lesen oder Speichern von Verlauf, Tab-URLs, Cookies oder Formulardaten.</li><li>Keine Analyse-, Absturz- oder Telemetriedaten.</li></ul><div class='callout'>Der ausgewählte Screenshot existiert nur im Arbeitsspeicher des Browsers, wird lokal zugeschnitten und beim Schließen des Fensters verworfen.</div>" },
+    { t: "Datenerfassung", html: "<p>SnapOCR erfasst keine persönlichen Daten. Konkret:</p><ul><li>Kein Konto, keine E-Mail, kein Name wird abgefragt.</li><li>Keine Screenshots, erkannten Texte oder Zwischenablage-Inhalte werden übertragen.</li><li>Kein Lesen oder Speichern von Verlauf, Tab-URLs, Cookies oder Formulardaten.</li><li>Keine Analyse-, Absturz- oder Telemetriedaten.</li></ul><div class='note'>Der ausgewählte Screenshot existiert nur im Arbeitsspeicher des Browsers, wird lokal zugeschnitten und beim Schließen des Fensters verworfen.</div>" },
     { t: "Wie SnapOCR funktioniert", html: "<p>Die OCR-Engine (Tesseract.js, als WebAssembly kompiliert) sowie die Sprachdaten für Englisch und Chinesisch (vereinfacht) sind in der Erweiterung enthalten. Beim Aufziehen einer Auswahl fotografiert der Browser den sichtbaren Tab mit seiner eigenen Screenshot-API, das Bild wird auf Ihrem Gerät per Canvas zugeschnitten und an die lokale Engine übergeben. In keinem Schritt wird etwas hochgeladen.</p>" },
-    { t: "Berechtigungen", html: "<ul><li><code>activeTab</code> — liest den aktuellen Tab nur im Moment des Aufnahme Starts; kein dauerhafter Zugriff auf unberührte Seiten.</li><li><code>scripting</code> — injiziert das Auswahl-Overlay bei Bedarf.</li><li><code>contextMenus</code> — fügt den Rechtsklick-Eintrag hinzu.</li><li><code>storage</code> / <code>unlimitedStorage</code> — speichert Einstellungen, Verlauf und Sprachpakete auf Ihrem Gerät.</li><li><code>clipboardWrite</code> — kopiert erkannten Text beim Klick auf „Kopieren“.</li><li>Host-Berechtigung <code>api.annmax1983.com</code> — nur für die optionale Pro-Lizenz.</li></ul>" },
-    { t: "Netzwerkanfragen", html: "<p>Es gibt genau zwei Situationen mit ausgehenden Anfragen, und keine überträgt Seiteninhalte oder Screenshots:</p><ul><li><b>Sprachpakete.</b> Wählen Sie eine der sieben nicht enthaltenen Sprachen, wird die Modelldatei einmal aus einem öffentlichen CDN geladen und auf dem Gerät zwischengespeichert.</li><li><b>Lizenzprüfung.</b>Nur bei aktivierter Pro-Lizenz: eine zufällige Installations-ID und grundlegende Browserdaten, während der Nutzung etwa alle zwei Stunden.</li></ul><p>Ohne Lizenz und nur mit enthaltenen Sprachen stellt SnapOCR keinerlei Netzwerkanfragen.</p>" },
+    { t: "Berechtigungen", html: "<ul><li><code>activeTab</code> — liest den aktuellen Tab nur im Moment der Aufnahme; kein dauerhafter Zugriff auf unberührte Seiten.</li><li><code>scripting</code> — injiziert das Auswahl-Overlay bei Bedarf.</li><li><code>contextMenus</code> — fügt den Rechtsklick-Eintrag hinzu.</li><li><code>storage</code> / <code>unlimitedStorage</code> — speichert Einstellungen, Verlauf und Sprachpakete auf Ihrem Gerät.</li><li><code>clipboardWrite</code> — kopiert erkannten Text beim Klick auf „Kopieren“.</li><li>Host-Berechtigung <code>api.annmax1983.com</code> — nur für die optionale Pro-Lizenz.</li></ul>" },
+    { t: "Netzwerkanfragen", html: "<p>Es gibt genau zwei Situationen mit ausgehenden Anfragen, und keine überträgt Seiteninhalte oder Screenshots:</p><ul><li><b>Sprachpakete.</b> Wählen Sie eine der sieben nicht enthaltenen Sprachen, wird die Modelldatei einmal aus einem öffentlichen CDN geladen und auf dem Gerät zwischengespeichert.</li><li><b>Lizenzprüfung.</b> Nur bei aktivierter Pro-Lizenz: eine zufällige Installations-ID und grundlegende Browserdaten, während der Nutzung etwa alle zwei Stunden.</li></ul><p>Ohne Lizenz und nur mit enthaltenen Sprachen stellt SnapOCR keinerlei Netzwerkanfragen.</p>" },
     { t: "Lokaler Speicher", html: "<p>Folgendes wird auf Ihrem Gerät gespeichert und nie mit uns synchronisiert:</p><ul><li>Gewählte Erkennungssprache und Oberflächeneinstellungen.</li><li>Erkennungsverlauf (max. 10 Einträge gratis, 200 mit Pro).</li><li>Zwischengespeicherte Sprachmodelle für die Offline-Erkennung.</li><li>Lizenzstatus, sofern aktiviert.</li></ul><p>Verlauf leeren oder die Erweiterung entfernen löscht diese Daten vom Gerät.</p>" },
     { t: "Lizenzdaten", html: "<p>Pro-Lizenzen werden von unserem Zahlungsdienstleister ausgestellt und über unseren eigenen Lizenzdienst geprüft. Der Dienst erhält den eingegebenen Lizenzschlüssel, eine zufällige Installations-ID, die Erweiterungs-ID und grundlegende Browserdaten (Name, Version, Oberflächensprache, Zeitzone, User-Agent) — niemals Screenshots, erkannten Text oder Seiteninhalte. Lizenzdaten dienen der Begrenzung der Aktivierungen und dem Support.</p>" },
     { t: "Drittanbieter", html: "<p>Wir verkaufen, vermieten oder teilen keine Daten mit Werbekunden oder Datenhändlern. Am Betrieb beteiligt sind ausschließlich zwei Dienstleister: unser Zahlungsdienstleister (Lizenzkauf) und unser Hosting-Anbieter (Lizenzprüfung und Auslieferung der Sprachpakete). Die Erweiterung enthält keine Analyse- oder Werbeskripte von Dritten.</p>" },
     { t: "Ihre Wahlmöglichkeiten", html: "<ul><li>Nutzen Sie SnapOCR vollständig offline mit den enthaltenen Sprachen — ohne Lizenz und ohne Netzwerkverkehr.</li><li>Leeren Sie den Verlauf jederzeit über das Popup.</li><li>Deaktivieren Sie eine Lizenz in den Einstellungen, um den Platz freizugeben.</li><li>Deinstallation entfernt alle lokal gespeicherten Daten.</li></ul>" },
     { t: "Kontakt", html: "<p>Fragen zu dieser Erklärung: <a href='mailto:support@annmax1983.com'>support@annmax1983.com</a>. Bei Änderungen der Erweiterung kann diese Seite aktualisiert werden; das Datum oben zeigt stets die aktuelle Fassung.</p>" }
   ]
-}
-,es: {
-  title: "Política de privacidad",
-  updated: "Extensión de navegador SnapOCR · Última actualización: 5 de noviembre de 2026",
+},
+"es":{
   summary: "SnapOCR no recopila, almacena ni transmite ningún dato personal. Las capturas y el texto reconocido se procesan por completo en tu dispositivo. La extensión no realiza ninguna petición de red salvo que uses un idioma no incluido o actives una licencia Pro.",
-  copy: "© 2026 SnapOCR",
-  home: "Inicio", more: "Más extensiones", site: "Sitio web",
   sections: [
-    { t: "Recogida de datos", html: "<p>SnapOCR no recopila información personal. En concreto:</p><ul><li>No se pide cuenta, correo ni nombre.</li><li>No se transmiten capturas, texto reconocido ni contenido del portapapeles.</li><li>No se leen ni guardan historial, URLs de pestañas, cookies ni datos de formularios.</li><li>No se envían analíticas, informes de fallos ni telemetría.</li></ul><div class='callout'>La captura que seleccionas existe solo en la memoria del navegador, se recorta en local y se descarta al cerrar la ventana de resultado.</div>" },
+    { t: "Recogida de datos", html: "<p>SnapOCR no recopila información personal. En concreto:</p><ul><li>No se pide cuenta, correo ni nombre.</li><li>No se transmiten capturas, texto reconocido ni contenido del portapapeles.</li><li>No se leen ni guardan historial, URLs de pestañas, cookies ni datos de formularios.</li><li>No se envían analíticas, informes de fallos ni telemetría.</li></ul><div class='note'>La captura que seleccionas existe solo en la memoria del navegador, se recorta en local y se descarta al cerrar la ventana de resultado.</div>" },
     { t: "Cómo funciona SnapOCR", html: "<p>El motor OCR (Tesseract.js, compilado a WebAssembly) y los datos de inglés y chino simplificado van incluidos en la extensión. Al arrastrar una selección, el navegador captura la pestaña visible con su propia API, la imagen se recorta en tu dispositivo con un canvas y se pasa al motor local. En ningún paso se sube nada.</p>" },
     { t: "Permisos", html: "<ul><li><code>activeTab</code> — lee la pestaña actual solo al iniciar una captura; no hay acceso permanente a sitios que no has usado.</li><li><code>scripting</code> — inyecta la capa de selección al invocar una captura.</li><li><code>contextMenus</code> — añade la entrada del menú contextual.</li><li><code>storage</code> / <code>unlimitedStorage</code> — guarda ajustes, historial y paquetes de idioma en tu dispositivo.</li><li><code>clipboardWrite</code> — copia el texto reconocido al pulsar Copiar.</li><li>Permiso de host <code>api.annmax1983.com</code> — solo para la licencia Pro opcional.</li></ul>" },
     { t: "Peticiones de red", html: "<p>Hay exactamente dos situaciones con peticiones salientes, y ninguna incluye contenido de páginas ni capturas:</p><ul><li><b>Paquetes de idioma.</b> Si eliges uno de los siete idiomas no incluidos, su modelo se descarga una vez desde una CDN pública y queda en caché en tu dispositivo.</li><li><b>Validación de licencia.</b> Solo con licencia Pro activa: un identificador de instalación aleatorio y datos básicos del navegador, aproximadamente cada dos horas durante el uso.</li></ul><p>Sin licencia y solo con los idiomas incluidos, SnapOCR no realiza ninguna petición de red.</p>" },
@@ -181,14 +306,10 @@ de: {
     { t: "Contacto", html: "<p>Dudas sobre esta política: <a href='mailto:support@annmax1983.com'>support@annmax1983.com</a>. Podemos actualizar esta página cuando cambie la extensión; la fecha superior refleja siempre la versión vigente.</p>" }
   ]
 },
-fr: {
-  title: "Politique de confidentialité",
-  updated: "Extension de navigateur SnapOCR · Dernière mise à jour : 5 novembre 2026",
+"fr":{
   summary: "SnapOCR ne collecte, ne stocke et ne transmet aucune donnée personnelle. Les captures et le texte reconnu sont traités intégralement sur votre appareil. L'extension n'effectue aucune requête réseau, sauf si vous utilisez une langue non incluse ou activez une licence Pro.",
-  copy: "© 2026 SnapOCR",
-  home: "Accueil", more: "Autres extensions", site: "Site web",
   sections: [
-    { t: "Collecte de données", html: "<p>SnapOCR ne collecte aucune information personnelle. Concrètement :</p><ul><li>Aucun compte, e-mail ou nom n'est demandé.</li><li>Aucune capture, texte reconnu ni contenu du presse-papiers n'est transmis.</li><li>Aucune lecture ni stockage de l'historique, des URLs d'onglets, des cookies ou des données de formulaires.</li><li>Aucune analyse, rapport de plantage ni télémétrie.</li></ul><div class='callout'>La capture que vous sélectionnez n'existe que dans la mémoire du navigateur, est recadrée en local et disparaît à la fermeture de la fenêtre de résultat.</div>" },
+    { t: "Collecte de données", html: "<p>SnapOCR ne collecte aucune information personnelle. Concrètement :</p><ul><li>Aucun compte, e-mail ou nom n'est demandé.</li><li>Aucune capture, texte reconnu ni contenu du presse-papiers n'est transmis.</li><li>Aucune lecture ni stockage de l'historique, des URLs d'onglets, des cookies ou des données de formulaires.</li><li>Aucune analyse, rapport de plantage ni télémétrie.</li></ul><div class='note'>La capture que vous sélectionnez n'existe que dans la mémoire du navigateur, est recadrée en local et disparaît à la fermeture de la fenêtre de résultat.</div>" },
     { t: "Fonctionnement de SnapOCR", html: "<p>Le moteur OCR (Tesseract.js, compilé en WebAssembly) ainsi que les données anglaises et chinoises simplifiées sont embarqués dans l'extension. Lorsque vous tracez une sélection, le navigateur photographie l'onglet visible avec sa propre API de capture, l'image est recadrée sur votre appareil via un canvas puis transmise au moteur local. Aucune étape n'implique de téléversement.</p>" },
     { t: "Permissions", html: "<ul><li><code>activeTab</code> — lit l'onglet courant uniquement au lancement d'une capture ; aucun accès permanent aux sites non utilisés.</li><li><code>scripting</code> — injecte la couche de sélection à la demande.</li><li><code>contextMenus</code> — ajoute l'entrée du menu contextuel.</li><li><code>storage</code> / <code>unlimitedStorage</code> — enregistre réglages, historique et packs de langue sur votre appareil.</li><li><code>clipboardWrite</code> — copie le texte reconnu au clic sur Copier.</li><li>Permission d'hôte <code>api.annmax1983.com</code> — réservée à la licence Pro facultative.</li></ul>" },
     { t: "Requêtes réseau", html: "<p>Il existe exactement deux situations générant des requêtes sortantes, et aucune ne transporte le contenu des pages ni des captures :</p><ul><li><b>Packs de langue.</b> Si vous choisissez l'une des sept langues non incluses, le fichier du modèle est téléchargé une fois depuis un CDN public puis mis en cache sur votre appareil.</li><li><b>Vérification de licence.</b> Uniquement avec une licence Pro active : un identifiant d'installation aléatoire et des données de navigateur de base, environ toutes les deux heures pendant l'utilisation.</li></ul><p>Sans licence et avec les langues incluses uniquement, SnapOCR n'effectue aucune requête réseau.</p>" },
@@ -199,58 +320,154 @@ fr: {
     { t: "Contact", html: "<p>Questions sur cette politique : <a href='mailto:support@annmax1983.com'>support@annmax1983.com</a>. Cette page peut être mise à jour lors des évolutions de l'extension ; la date en haut reflète toujours la version en vigueur.</p>" }
   ]
 }
-}
+}};
+
+const UI_ALL = {
+"en":{"privacyTitle":"Privacy Policy","home":"Home","onThisPage":"On this page","lastUpdated":"Last updated: November 2026","chips":["100% local OCR","No account","No analytics","Licence optional"],"footerHome":"Home","footerGithub":"GitHub","footerSite":"Website","footerEmail":"Email"},
+"zh":{"privacyTitle":"隐私政策","home":"首页","onThisPage":"本页内容","lastUpdated":"最后更新：2026 年 11 月","chips":["100% 本地 OCR","无需账号","无统计追踪","许可证可选"],"footerHome":"首页","footerGithub":"GitHub","footerSite":"官方网站","footerEmail":"邮箱"},
+"ja":{"privacyTitle":"プライバシーポリシー","home":"ホーム","onThisPage":"このページの内容","lastUpdated":"最終更新：2026 年 11 月","chips":["100% 端末内 OCR","アカウント不要","トラッキングなし","ライセンスは任意"],"footerHome":"ホーム","footerGithub":"GitHub","footerSite":"公式サイト","footerEmail":"メール"},
+"de":{"privacyTitle":"Datenschutzerklärung","home":"Start","onThisPage":"Auf dieser Seite","lastUpdated":"Zuletzt aktualisiert: November 2026","chips":["100 % lokale OCR","Kein Konto","Kein Tracking","Lizenz optional"],"footerHome":"Start","footerGithub":"GitHub","footerSite":"Website","footerEmail":"E-Mail"},
+"es":{"privacyTitle":"Política de privacidad","home":"Inicio","onThisPage":"En esta página","lastUpdated":"Última actualización: noviembre de 2026","chips":["OCR 100% local","Sin cuenta","Sin analítica","Licencia opcional"],"footerHome":"Inicio","footerGithub":"GitHub","footerSite":"Sitio web","footerEmail":"Correo"},
+"fr":{"privacyTitle":"Politique de confidentialité","home":"Accueil","onThisPage":"Sur cette page","lastUpdated":"Dernière mise à jour : novembre 2026","chips":["OCR 100 % locale","Sans compte","Sans analyse","Licence facultative"],"footerHome":"Accueil","footerGithub":"GitHub","footerSite":"Site web","footerEmail":"E-mail"}
 };
 
-function render(lang) {
-  const L = MODEL.langs[lang] || MODEL.langs.en;
-  document.getElementById('doc-title').textContent = L.title;
-  document.getElementById('doc-updated').textContent = L.updated;
-  document.getElementById('doc-summary').textContent = L.summary;
-  document.getElementById('foot-copy').textContent = L.copy;
-  document.querySelectorAll('[data-k]').forEach(el => {
-    const v = L[el.getAttribute('data-k')];
-    if (typeof v === 'string') el.textContent = v;
-  });
+const CONFIG = {"name":"SnapOCR","github":"https://github.com/annmax1983/SnapOCR","icon":"icons/icon128.png","site":"https://annmax1983.com/extensions/snapocr"};
+const LANG_KEY = "vkt-snapocr-lang";
+(function () {
+  "use strict";
 
-  const wrap = document.getElementById('doc-sections');
-  wrap.textContent = '';
-  L.sections.forEach((sec, idx) => {
-    const secEl = document.createElement('section');
-    secEl.className = 'doc';
-    const h2 = document.createElement('h2');
-    const num = document.createElement('span');
-    num.className = 'num';
-    num.textContent = (idx + 1) + '.';
-    h2.appendChild(num);
-    h2.appendChild(document.createTextNode(sec.t));
-    const body = document.createElement('div');
-    body.innerHTML = sec.html;
-    secEl.append(h2, body);
-    wrap.appendChild(secEl);
-  });
+  var select = document.getElementById("p-lang");
+  var observer = null;
+  var ui = function (lang) { return UI_ALL[lang] || UI_ALL.en; };
 
-  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
-  try { localStorage.setItem('snapocr_policy_lang', lang); } catch (e) {}
-}
+  function esc(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
 
-document.getElementById('p-lang').addEventListener('change', e => render(e.target.value));
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = value == null ? "" : value;
+  }
 
-(function init() {
-  let lang = 'en';
-  try {
-    const saved = localStorage.getItem('snapocr_policy_lang');
-    const nav = (navigator.language || 'en').toLowerCase();
-    if (saved && MODEL.langs[saved]) lang = saved;
-    else if (nav.startsWith('zh')) lang = 'zh';
-    else if (nav.startsWith('ja')) lang = 'ja';
-    else if (nav.startsWith('de')) lang = 'de';
-    else if (nav.startsWith('es')) lang = 'es';
-    else if (nav.startsWith('fr')) lang = 'fr';
-  } catch (e) {}
-  document.getElementById('p-lang').value = lang;
-  render(lang);
+  function detect() {
+    var codes = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+    for (var i = 0; i < codes.length; i++) {
+      var code = String(codes[i] || "").toLowerCase();
+      if (code.indexOf("zh") === 0) return "zh";
+      if (code.indexOf("ja") === 0) return "ja";
+      if (code.indexOf("de") === 0) return "de";
+      if (code.indexOf("es") === 0) return "es";
+      if (code.indexOf("fr") === 0) return "fr";
+      if (code.indexOf("en") === 0) return "en";
+    }
+    return "en";
+  }
+
+  function initToc() {
+    if (observer) observer.disconnect();
+    var links = Array.prototype.slice.call(document.querySelectorAll("#p-toc a"));
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".policy-card"));
+    if (!links.length || !cards.length || typeof IntersectionObserver === "undefined") return;
+
+    function activate(id) {
+      links.forEach(function (link) {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+      });
+    }
+
+    observer = new IntersectionObserver(function (entries) {
+      var visible = entries.filter(function (entry) { return entry.isIntersecting; });
+      if (visible.length) activate(visible[0].target.id);
+    }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 1] });
+
+    cards.forEach(function (card) { observer.observe(card); });
+    if (links[0]) links[0].classList.add("active");
+  }
+
+  function render(lang) {
+    var data = MODEL.langs[lang];
+    if (!data) return;
+    var u = ui(lang);
+
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+    document.title = CONFIG.name + " — " + u.privacyTitle;
+
+    setText("p-home", u.home);
+    setText("p-eyebrow", u.privacyTitle);
+    setText("p-h1", CONFIG.name);
+    setText("p-h1-sub", u.privacyTitle);
+    setText("p-updated", u.lastUpdated);
+    setText("p-toc-title", u.onThisPage);
+
+    var summary = document.getElementById("p-summary");
+    if (summary) summary.innerHTML = data.summary || "";
+
+    var chips = document.getElementById("p-chips");
+    if (chips) {
+      chips.innerHTML = u.chips.map(function (chip) {
+        return '<span class="chip">' + esc(chip) + "</span>";
+      }).join("");
+    }
+
+    setText("p-footer-home", u.footerHome);
+    setText("p-footer-privacy", u.privacyTitle);
+    setText("p-footer-github", u.footerGithub);
+    setText("p-footer-site", u.footerSite);
+    setText("p-footer-email", u.footerEmail || "Email");
+
+    var toc = document.getElementById("p-toc");
+    var sections = document.getElementById("p-sections");
+    if (!toc || !sections) return;
+    toc.innerHTML = "";
+    sections.innerHTML = "";
+
+    data.sections.forEach(function (section, index) {
+      var number = String(index + 1).padStart(2, "0");
+      var id = "section-" + (index + 1);
+
+      var link = document.createElement("a");
+      link.href = "#" + id;
+      link.innerHTML = "<span>" + number + "</span>" + esc(section.t);
+      toc.appendChild(link);
+
+      var card = document.createElement("article");
+      card.className = "policy-card";
+      card.id = id;
+      card.innerHTML = '<h2><span class="policy-num">' + number + "</span>" + esc(section.t) + '</h2><div class="policy-body">' + section.html + "</div>";
+      sections.appendChild(card);
+    });
+
+    initToc();
+  }
+
+  function storedLang() {
+    try { return localStorage.getItem(LANG_KEY); } catch (error) { return null; }
+  }
+
+  function remember(lang) {
+    try { localStorage.setItem(LANG_KEY, lang); } catch (error) { /* storage can be blocked */ }
+  }
+
+  initToc();
+
+  if (select) {
+    var saved = storedLang();
+    var initial = saved && MODEL.langs[saved] ? saved : detect();
+    if (!MODEL.langs[initial]) initial = "en";
+    select.value = initial;
+    if (initial !== "en") render(initial);
+    select.addEventListener("change", function () {
+      remember(select.value);
+      render(select.value);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 })();
+
 </script>
 </body>
 </html>
