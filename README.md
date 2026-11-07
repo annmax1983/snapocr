@@ -48,16 +48,32 @@ Purchase & license management: <https://annmax1983.com>
 - Screenshots and recognition never leave your browser.
 - Network requests are limited to: one-time download of the 7 Pro language packs, and license validation for Pro users.
 
+## Supported Browsers
+
+| Browser | Status | Notes |
+|---------|--------|-------|
+| Google Chrome | ✅ Fully supported | Manifest V3 |
+| Microsoft Edge | ✅ Fully supported | Manifest V3 |
+| Mozilla Firefox | ✅ Fully supported | Manifest V3, Firefox 121+ (desktop) |
+| Any Chromium-based browser (Brave, Opera, Vivaldi…) | ✅ Supported | Manifest V3 |
+
+> **Firefox differences:**
+> - SnapOCR uses no Chrome-only permissions — `activeTab`, `contextMenus`, `storage`, `unlimitedStorage`, `scripting`, `clipboardWrite` and the licence host all work on Firefox, so recognition, history, TXT export and the licence behave exactly as on Chrome and Edge.
+> - The Firefox build keeps a persistent `background.scripts` page instead of the Chromium `service_worker`, and adds `browser_specific_settings.gecko` for AMO.
+> - Everything else — area selection, editable result, one-click copy, bundled language packs, Free quota and Pro features — is identical across browsers.
+
 ## Development
 
 ```powershell
 npm install
-npm run build      # assembles publish/
+npm run build      # syncs vendor/ and assembles publish/
 ```
 
-Load in Chrome/Edge: `chrome://extensions` → Developer mode → Load unpacked → select `publish/`.
+Load in Chrome/Edge: `chrome://extensions` → Developer mode → Load unpacked → select this folder (the one with `manifest.json`).
 
-Package for the stores: `Compress-Archive -Path publish/* -DestinationPath snapocr.zip -Force`
+> `npm run build` is required at least once before loading: it copies the Tesseract runtime (worker, WASM core, `eng`/`chi_sim` language data) from `node_modules` into `vendor/`, which the result page loads as `<script src="../vendor/tesseract/tesseract.min.js">`. Without `vendor/` the OCR page fails with `Tesseract is not defined`.
+
+Package for the store: upload `publish/snapocr-v<version>.zip` (produced by the build).
 
 Regenerate store screenshots (needs Chrome or Edge installed):
 
