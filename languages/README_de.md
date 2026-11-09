@@ -48,18 +48,21 @@ Kauf & Lizenzverwaltung: <https://annmax1983.com>
 - Screenshots und Erkennung verlassen den Browser nie.
 - Netzwerkanfragen beschränken sich auf den einmaligen Download nicht enthaltener Sprachpakete und die Lizenzprüfung für Pro-Nutzer.
 
-## Entwicklung
+## Hinweis zum Quellcode
 
-```powershell
-npm install
-npm run build      # erzeugt publish/
-```
+> ⚠️ **Dieses Repository dient ausschließlich der Projektpräsentation — der vollständige Quellcode wird hier nicht veröffentlicht.** Es enthält nur die Nutzungsdokumentation, die Release-Notizen und Support-Informationen zur Erweiterung.
 
-Laden in Chrome/Edge: `chrome://extensions` → Entwicklermodus → „Entpackte Erweiterung laden" → `publish/` auswählen.
+> 📥 **Installation ausschließlich über die offiziellen Browser-Stores:** Chrome Web Store · Microsoft Edge Add-ons · Firefox-Add-ons (AMO). Von hier werden keine Offline-Installer verteilt.
 
-Paket für die Stores: `Compress-Archive -Path publish/* -DestinationPath snapocr.zip -Force`
+---
 
-Ein Firefox-Build wird in einem separaten Repository gepflegt (`background.scripts` + `browser_specific_settings.gecko`).
+## Lizenz
+
+Copyright © 2026 VKT SnapOCR. All rights reserved.
+
+Diese Software ist proprietär und quellgeschlossen. Ohne vorherige schriftliche Genehmigung des Autors ist das Dekompilieren, Reverse-Engineering, Knacken, Verändern, Neuverpacken, Weiterverbreiten oder Weiterverkaufen der Software (ganz oder teilweise) streng untersagt.
+
+---
 
 ## Kontakt
 

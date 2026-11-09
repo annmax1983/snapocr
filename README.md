@@ -62,52 +62,23 @@ Purchase & license management: <https://annmax1983.com>
 > - The Firefox build keeps a persistent `background.scripts` page instead of the Chromium `service_worker`, and adds `browser_specific_settings.gecko` for AMO.
 > - Everything else — area selection, editable result, one-click copy, bundled language packs, Free quota and Pro features — is identical across browsers.
 
-## Development
+---
 
-```powershell
-npm install
-npm run build      # syncs vendor/ and assembles publish/
-```
+## Source Code Notice
 
-Load in Chrome/Edge: `chrome://extensions` → Developer mode → Load unpacked → select this folder (the one with `manifest.json`).
+> ⚠️ **This repository is for project showcase only — the full source code is not published here.** It contains the user documentation, release notes and support information for the extension.
 
-> `npm run build` is required at least once before loading: it copies the Tesseract runtime (worker, WASM core, `eng`/`chi_sim` language data) from `node_modules` into `vendor/`, which the result page loads as `<script src="../vendor/tesseract/tesseract.min.js">`. Without `vendor/` the OCR page fails with `Tesseract is not defined`.
+> 📥 **Download and install only from the official browser stores:** Chrome Web Store · Microsoft Edge Add-ons · Firefox Add-ons (AMO). No offline installation package is distributed from this repository.
 
-Package for the store: upload `publish/snapocr-v<version>.zip` (produced by the build).
+---
 
-Regenerate store screenshots (needs Chrome or Edge installed):
+## License
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/capture_screenshots.ps1
-```
+Copyright © 2026 VKT SnapOCR. All rights reserved.
 
-### Directory structure
+This software is proprietary and closed-source. Without prior written authorization from the author, decompiling, reverse-engineering, cracking, modifying, repackaging, redistributing or reselling the program (in whole or in part) is strictly prohibited.
 
-```
-SnapOCR/
-├── manifest.json          # MV3
-├── background.js          # Service worker: on-demand injection, capture, crop, result window
-├── content.js / .css      # Selection overlay (injected on demand, no <all_urls>)
-├── license.js             # Creem licence (shared annmax template)
-├── popup/                 # Capture trigger, language, history, licence modal
-├── result/                # OCR run + progress + edit/copy/export
-├── _locales/              # 6 UI languages
-├── icons/                 # Extension icons (scripts/make_icons.py)
-├── assets/                # Shared footer link icons
-├── index.html             # Product landing page
-├── privacy-policy.html    # Privacy policy (EN / 中文)
-├── promo.html             # 1400×560 store promo tile source
-├── store-listing/         # Store copy: en / zh_CN / ja / de / es / fr
-├── screenshots/           # 1280×800 store shots + 440×280 / 1400×560 promos
-│   └── _src/              # HTML templates rendered by scripts/capture_screenshots.ps1
-├── languages/             # Translated READMEs (zh / es / de / ja / fr)
-└── scripts/
-    ├── build.js           # Assemble publish/ (runtime + bundled language packs)
-    ├── make_icons.py      # Stdlib-only icon generator
-    └── capture_screenshots.ps1  # Headless Chrome renderer for store shots
-```
-
-A Firefox build (native `background.scripts` + `browser_specific_settings.gecko`) is maintained in a separate repository.
+---
 
 ## Contact
 

@@ -48,18 +48,21 @@ Webページの好きな範囲をドラッグして、ワンクリックでテ�
 - スクリーンショットと認識処理はブラウザの外に出ません。
 - 通信は同梱外言語パックの初回ダウンロードと Pro ユーザーのライセンス検証のみ。
 
-## 開発
+## ソースコードについて
 
-```powershell
-npm install
-npm run build      # publish/ を生成
-```
+> ⚠️ **本リポジトリはプロジェクト紹介のみを目的としており、完全なソースコードは公開していません。** 拡張機能の利用説明・リリースノート・サポート情報のみを掲載しています。
 
-Chrome / Edge での読み込み：`chrome://extensions` → デベロッパーモード → 「パッケージ化されていない拡張機能を読み込む」→ `publish/` を選択。
+> 📥 **ダウンロードとインストールは公式ブラウザストアから：** Chrome ウェブストア · Microsoft Edge アドオン · Firefox アドオン（AMO）。本リポジトリからオフラインインストーラーを配布することはありません。
 
-ストア用パッケージ：`Compress-Archive -Path publish/* -DestinationPath snapocr.zip -Force`
+---
 
-Firefox ビルドは別リポジトリで保守しています（`background.scripts` + `browser_specific_settings.gecko`）。
+## ライセンス
+
+Copyright © 2026 VKT SnapOCR. All rights reserved.
+
+本ソフトウェアはクローズドソースのプロプライエタリソフトウェアです。作者の事前の書面による許諾なく、本ソフトウェアの全部または一部を逆コンパイル・リバースエンジニアリング・クラック・改変・再パッケージ・再配布・転売することを固く禁じます。
+
+---
 
 ## お問い合わせ
 

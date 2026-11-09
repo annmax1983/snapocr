@@ -48,18 +48,21 @@
 - 截图与识别全程不离开浏览器。
 - 网络请求仅限：非内置语言包的一次性下载、Pro 用户的授权校验。
 
-## 开发
+## 源码说明
 
-```powershell
-npm install
-npm run build      # 产出 publish/
-```
+> ⚠️ **本仓库仅用于项目展示，不发布完整源码。** 这里只有扩展的使用说明、更新日志与支持信息。
 
-Chrome / Edge 加载：`chrome://extensions` → 开发者模式 → 加载已解压的扩展程序 → 选择 `publish/`。
+> 📥 **请前往官方浏览器商店下载安装：** Chrome Web Store · Microsoft Edge Add-ons · Firefox 附加组件（AMO）。本仓库不提供离线安装包，也不向终端用户分发源码包。
 
-打包上架：`Compress-Archive -Path publish/* -DestinationPath snapocr.zip -Force`
+---
 
-Firefox 构建在另一仓库单独维护（`background.scripts` + `browser_specific_settings.gecko` 原生形态）。
+## 许可证
+
+Copyright © 2026 VKT SnapOCR. All rights reserved.
+
+本软件为闭源专有软件。未经作者书面授权，严禁反编译、逆向工程、破解、修改、重新打包、再分发或转售本软件（含全部或部分）。
+
+---
 
 ## 联系
 
