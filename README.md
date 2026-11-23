@@ -9,7 +9,7 @@ Select any area of a webpage and extract the text in it with one click. OCR runs
 ## Why SnapOCR
 
 - **Truly private**: all recognition happens locally. Nothing is uploaded, ever.
-- **Works offline**: English & Simplified Chinese language packs are bundled. Pro adds 7 more languages that download once, then work offline.
+- **Works offline**: English & Simplified Chinese language packs are bundled. Pro adds 7 more languages that download once (under 3 MB each, from our own server), then work offline.
 - **Minimal permissions**: no permanent `<all_urls>` access — the selection overlay is injected only when you invoke it (activeTab).
 - **Practical, no bloat**: select → recognize → copy. That's the whole product.
 
@@ -42,11 +42,12 @@ Purchase & license management: <https://annmax1983.com>
 | `storage` / `unlimitedStorage` | Settings, history, cached language packs |
 | `clipboardWrite` | Copy recognized text |
 | Host: `api.annmax1983.com` | License activation/validation only (Pro users) |
+| Host: `annmax1983.com` | One-time download of the Pro language packs |
 
 ## Privacy
 
 - Screenshots and recognition never leave your browser.
-- Network requests are limited to: one-time download of the 7 Pro language packs, and license validation for Pro users.
+- Network requests are limited to: one-time download of the 7 Pro language packs (served from our own domain, never a third-party CDN), and license validation for Pro users.
 
 ## Supported Browsers
 
@@ -54,7 +55,7 @@ Purchase & license management: <https://annmax1983.com>
 |---------|--------|-------|
 | Google Chrome | ✅ Fully supported | Manifest V3 |
 | Microsoft Edge | ✅ Fully supported | Manifest V3 |
-| Mozilla Firefox | ✅ Fully supported | Manifest V3, Firefox 121+ (desktop) |
+| Mozilla Firefox | ✅ Fully supported | Manifest V3, Firefox 140+ (desktop) |
 | Any Chromium-based browser (Brave, Opera, Vivaldi…) | ✅ Supported | Manifest V3 |
 
 > **Firefox differences:**

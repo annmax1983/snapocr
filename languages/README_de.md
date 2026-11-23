@@ -9,7 +9,7 @@ Markieren Sie einen beliebigen Bereich einer Webseite und extrahieren Sie den Te
 ## Warum SnapOCR
 
 - **Wirklich privat**: Die gesamte Erkennung läuft lokal. Es wird nichts hochgeladen.
-- **Offline nutzbar**: Englisch- und Chinesisch-Sprachpakete sind enthalten. Die 7 weiteren Sprachen sind Teil von Pro — einmal geladen, laufen sie offline.
+- **Offline nutzbar**: Englisch- und Chinesisch-Sprachpakete sind enthalten. Die 7 weiteren Sprachen gehören zu Pro: je unter 3 MB, einmal von unserem eigenen Server geladen, danach offline nutzbar.
 - **Minimale Berechtigungen**: Kein dauerhafter `<all_urls>`-Zugriff — das Auswahl-Overlay wird nur bei Bedarf injiziert (activeTab).
 - **Praktisch ohne Ballast**: Auswählen → Erkennen → Kopieren. Das ist alles.
 
@@ -42,6 +42,7 @@ Kauf & Lizenzverwaltung: <https://annmax1983.com>
 | `storage` / `unlimitedStorage` | Einstellungen, Verlauf, Sprachpaket-Cache |
 | `clipboardWrite` | Erkannten Text kopieren |
 | Host `api.annmax1983.com` | Nur Lizenzaktivierung/-prüfung (Pro) |
+| Host `annmax1983.com` | Einmaliger Download der 7 Pro-Sprachpakete |
 
 ## Datenschutz
 

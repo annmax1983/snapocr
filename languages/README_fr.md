@@ -9,7 +9,7 @@ Sélectionnez n'importe quelle zone d'une page web et extrayez son texte en un c
 ## Pourquoi SnapOCR
 
 - **Confidentialité réelle** : toute la reconnaissance est locale. Rien n'est téléversé, jamais.
-- **Fonctionne hors ligne** : les packs anglais et chinois simplifié sont inclus. Les 7 autres langues font partie de Pro — un téléchargement, puis elles fonctionnent hors ligne.
+- **Fonctionne hors ligne** : les packs anglais et chinois simplifié sont inclus. Les 7 autres langues font partie de Pro : moins de 3 Mo chacune, téléchargées une seule fois depuis notre propre serveur, puis utilisables hors ligne.
 - **Permissions minimales** : pas d'accès permanent à `<all_urls>` — la couche de sélection n'est injectée qu'à la demande (activeTab).
 - **Pratique, sans superflu** : sélectionner → reconnaître → copier. C'est tout.
 
@@ -42,6 +42,7 @@ Achat et gestion de licence : <https://annmax1983.com>
 | `storage` / `unlimitedStorage` | Réglages, historique, cache des packs de langue |
 | `clipboardWrite` | Copier le texte reconnu |
 | Hôte `api.annmax1983.com` | Activation/validation de licence uniquement (Pro) |
+| Hôte `annmax1983.com` | Téléchargement unique des 7 packs de langue Pro |
 
 ## Confidentialité
 

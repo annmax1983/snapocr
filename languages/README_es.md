@@ -9,7 +9,7 @@ Selecciona cualquier zona de una página web y extrae el texto con un clic. El O
 ## Por qué SnapOCR
 
 - **Privacidad real**: todo el reconocimiento ocurre en local. Nunca se sube nada.
-- **Funciona sin conexión**: los paquetes de inglés y chino simplificado van incluidos. Los otros 7 idiomas son parte de Pro: se descargan una vez y luego funcionan offline.
+- **Funciona sin conexión**: los paquetes de inglés y chino simplificado van incluidos. Los otros 7 idiomas son parte de Pro: menos de 3 MB cada uno, se descargan una vez desde nuestro propio servidor y luego funcionan sin conexión.
 - **Permisos mínimos**: sin acceso permanente a `<all_urls>`: la capa de selección solo se inyecta al invocarla (activeTab).
 - **Práctico, sin relleno**: seleccionar → reconocer → copiar. Eso es todo.
 
@@ -42,6 +42,7 @@ Compra y gestión de licencias: <https://annmax1983.com>
 | `storage` / `unlimitedStorage` | Ajustes, historial, caché de paquetes de idioma |
 | `clipboardWrite` | Copiar el texto reconocido |
 | Host `api.annmax1983.com` | Solo activación/validación de licencia (Pro) |
+| Host `annmax1983.com` | Descarga única de los 7 paquetes de idioma Pro |
 
 ## Privacidad
 
